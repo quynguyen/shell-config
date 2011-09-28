@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+#
+# This file should be sourced by ~/.zshenv (which runs BEFORE ~/.zshrc)
+#
+
+pushd $( dirname ${BASH_SOURCE:-$0} ) > /dev/null # go there the directory of this currently 'sourced' script ( quietly )
+
+myFunctionDir=$(pwd)/func
+
+fpath=($fpath $myFunctionDir)
+typeset -U fpath
+
+popd  > /dev/null # go back to working directory ( quietly )

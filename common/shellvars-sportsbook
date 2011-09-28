@@ -1,0 +1,23 @@
+#!/bin/sh
+
+export docs=/home/quy/docs
+export servers=$docs/servers
+export databases=$docs/databases
+export pro=/home/quy/projects
+export art=$pro/artifacts
+export pw=$art/public-web
+export plat=$art/platform
+export site=/home/quy/site-utils
+export www=/sites/www.qnguyen.dev.bodog.com
+export bm=/sites/bm-qnguyen.dev.bodog.com
+export tw=/sites/tw-qnguyen.dev.bodog.com
+export tws=/sites/twserver-qnguyen.dev.bodog.com
+export sp=/sites/sportspub-qnguyen.dev.bodog.com
+export set=/sites/settler-qnguyen.dev.bodog.com
+export mn=/sites/manager-qnguyen.bodog.com
+export DEVBOX=true
+export ESPORTZ_DIR=$pro/esportz4
+export esportz=$ESPORTZ_DIR
+export db=/home/quy/projects/database/DB2/esportz/dbChanges/sportsbook
+export squidtank=esportz@squidtank.devtest.esportz.com
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pushd $( dirname $BASH_SOURCE ) > /dev/null # go there the directory of this currently 'sourced' script ( quietly )
+
+source ../common/profile
+source bashrc
+source gitprompt
+
+popd  > /dev/null # go back to working directory ( quietly )

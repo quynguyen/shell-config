@@ -1,0 +1,34 @@
+#!/bin/sh
+
+#CD Args
+[ -f /usr/share/cdargs/cdargs-bash.sh ] && source /usr/share/cdargs/cdargs-bash.sh
+
+umask 002
+
+export PATH=~/bin:$PATH
+
+# Set commandline input style to emacs
+set -o emacs
+
+# Disable Terminal PC Speaker
+setterm -blength 0
+
+#When running two bash windows, allow both to write to the history, not one stomping the other
+shopt -s histappend
+
+#Remove duplicates from history
+export HISTCONTROL="ignoredups"
+export HISTIGNORE="&:ls:[bf]g:exit"
+
+#Keep multiline commands as one command in history
+shopt -s cmdhist
+
+if [ $DISPLAY ] && ! [ $USER == root ]; then
+	# Disable PC Speaker in X
+	xset b off
+	
+	# Allow terminals from remote/local addresses to connect to this X11 Server
+	xhost +localhost
+	xhost +local:root
+	#xhost +quy.dnsalias.org
+fi

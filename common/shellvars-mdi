@@ -1,0 +1,40 @@
+#!/bin/sh
+
+export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
+
+export MDI_HOME=$HOME/projects/mdi
+export stdforms=/home/quy/projects/stdforms
+export mdi=/home/quy/projects/mdi
+export core=$mdi/core
+export ear=$mdi/ear
+export cu=$ear/creditUnions
+export resources=$ear/core/Resources.war
+export war=$ear/core/mdWebApp.war
+export modules=$core/modules
+export mdwebapp=$core/md-webapp
+
+#MDi JPTree
+export rjptree=$core/modules/com.cucbc.md.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for MDi
+export ojptree=$ear/JPTree #Ops controlled MDi JPTree
+export wjptree=$ear/core/mdWebApp.war/WEB-INF/JPTree #The deployed Root JPTree for MDi
+#MD6 JPTree
+export crjptree=$core/modules/com.cucbc.mdclassic/src/main/webapp/WEB-INF/JPTree #Root JPTree for MD6
+export cojptree=$ear/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
+export cwjptree=$ear/mdClassic.war/WEB-INF/JPTree #The deployed Root JPTree for MD6
+
+export generic=$ear/creditUnions/internal/generic.war
+export easysavings=$ear/creditUnions/internal/easysavings.war
+export vancity=$ear/creditUnions/bc/vancity.war
+export coast=$ear/creditUnions/bc/coast.war
+export nscu=$ear/creditUnions/bc/nscu.war
+export wscu=$ear/creditUnions/bc/westminster.war
+export interior=$ear/creditUnions/bc/interior.war
+
+# support
+export support=/home/quy/support
+export pos=$support/problems
+export cos=$support/change-orders
+export req=$support/requests
+export po=$pos/current
+export co=$cos/current
+export re=$req/current

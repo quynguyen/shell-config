@@ -1,0 +1,8 @@
+#!/bin/sh
+
+alias cvs-stat="cvs status 2>&1 | egrep '\?|File:' | grep -v Up-to-date"
+alias cvs-updates="cvs -n update -dP 2>/dev/null"
+alias do-cvs-update="cvs -Q update -dP"
+alias ll="ls -l"
+alias lt="ls -ltr"
+alias cb="cdb -b"

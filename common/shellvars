@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Set the PAGER program to be 'less'.  The "-i" option is for case-insensitive searching
+export EDITOR="/usr/bin/vim"
+export PAGER="/usr/bin/less -i"
+
+# CVS
+export CVSUMASK=002
+
+# To make the French Characters Look Sweet
+export LANG=en_US.utf8
+export LANGVAR=en_US.UTF-8
+
+# Gentoo Stuff
+#export DISTCC_DIR=/var/tmp/portage/.distcc/
+#export DISTCC_HOSTS="173.17.49.159 172.17.68.233 172.17.56.73 172.17.48.136"
+
+export MAVEN_OPTS="-Xmx1024m" 
+
+# GITHUB
+export GITHUB=git@github.com:quynguyen
