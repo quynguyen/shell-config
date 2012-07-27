@@ -6,3 +6,9 @@ alias do-cvs-update="cvs -Q update -dP"
 alias ll="ls -l"
 alias lt="ls -ltr"
 alias cb="cdb -b"
+
+#svn
+alias st="svn stat"
+
+#git
+alias gs="git status"

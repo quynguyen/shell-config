@@ -17,5 +17,8 @@ export LANGVAR=en_US.UTF-8
 
 export MAVEN_OPTS="-Xmx1024m" 
 
+# Project scripts
+export scripts=$HOME/projects/scripts
+
 # GITHUB
 export GITHUB=git@github.com:quynguyen

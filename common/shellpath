@@ -9,10 +9,11 @@ export JAVA_HOME=/opt/java
 export JETTY_HOME=/opt/jetty
 export JBOSS_HOME=/home/quy/bin/jboss
 export GROOVY_HOME=/opt/groovy
+export GANT_HOME=/opt/gant
 export GRAILS_HOME=/opt/grails
 export MAVEN_HOME=/opt/maven
 export SCALA_HOME=/opt/scala
-export PATH=$PATH:$JBOSS_HOME/bin:$MAVEN_HOME/bin:$GROOVY_HOME/bin:$SCALA_HOME/bin:$ANDROID_HOME/tools:$GRAILS_HOME/bin
+export PATH=$PATH:$JBOSS_HOME/bin:$MAVEN_HOME/bin:$GROOVY_HOME/bin:$GANT_HOME/bin:$SCALA_HOME/bin:$ANDROID_HOME/tools:$GRAILS_HOME/bin
 
 export m2=/home/quy/.m2/repository
 export downloads=/home/quy/downloads

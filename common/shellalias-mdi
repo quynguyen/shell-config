@@ -1,6 +1,6 @@
 #!/bin/sh
 
-alias imvn3='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/maven/bin/mvn -s ~/projects/mdi/core/maven/conf/settings.xml'
+alias imvn3='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/scripts/mvn'
 alias imvn2='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/maven2/bin/mvn -s ~/projects/mdi/core/maven2/conf/settings.xml'
 alias imvn='imvn3'
 alias imvnT='imvn3 -T C1'
