@@ -1,3 +1,5 @@
 #!/bin/sh
 
-export MDB_PATH="~/projects/mdb"
+export MDB_PATH="$HOME/projects/mdb"
+
+export mdb=$MDB_PATH
