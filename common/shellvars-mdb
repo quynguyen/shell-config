@@ -1,0 +1,3 @@
+#!/bin/sh
+
+export MDB_PATH="~/projects/mdb"
