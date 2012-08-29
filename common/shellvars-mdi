@@ -25,6 +25,9 @@ export wjptree=$ear/core/mdWebApp.war/WEB-INF/JPTree #The deployed Root JPTree f
 export crjptree=$core/modules/com.cucbc.mdclassic/src/main/webapp/WEB-INF/JPTree #Root JPTree for MD6
 export cojptree=$ear/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
 export cwjptree=$ear/mdClassic.war/WEB-INF/JPTree #The deployed Root JPTree for MD6
+#PSD JPTree
+export prjptree=$core/modules/net.paymentstream.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for PSD
+export pwjptree=$ear/paymentstream.war/WEB-INF/JPTree/
 
 export generic=$ear/creditUnions/internal/generic.war
 export easysavings=$ear/creditUnions/internal/easysavings.war
@@ -55,6 +58,9 @@ export wjptree2=$ear2/core/mdWebApp.war/WEB-INF/JPTree #The deployed Root JPTree
 export crjptree2=$core2/modules/com.cucbc.mdclassic/src/main/webapp/WEB-INF/JPTree #Root JPTree for MD6
 export cojptree2=$ear2/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
 export cwjptree2=$ear2/mdClassic.war/WEB-INF/JPTree #The deployed Root JPTree for MD6
+#PSD JPTree
+export prjptree2=$core2/modules/net.paymentstream.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for PSD
+export pwjptree2=$ear2/paymentstream.war/WEB-INF/JPTree/
 
 export generic2=$ear2/creditUnions/internal/generic.war
 export easysavings2=$ear2/creditUnions/internal/easysavings.war
@@ -69,6 +75,7 @@ export interior2=$ear2/creditUnions/bc/interior.war
 ##########################################
 
 # support
+export projects=/home/quy/projects
 export support=/home/quy/support
 export pos=$support/problems
 export cos=$support/change-orders
