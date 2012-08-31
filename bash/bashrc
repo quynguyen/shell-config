@@ -3,6 +3,10 @@
 #CD Args
 [ -f /usr/share/cdargs/cdargs-bash.sh ] && source /usr/share/cdargs/cdargs-bash.sh
 
+
+# Bash Completion
+[ -f /etc/profile.d/bash-completion.sh ] && source /etc/profile.d/bash-completion.sh
+
 umask 002
 
 export PATH=~/bin:$PATH
