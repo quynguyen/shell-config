@@ -1,0 +1,65 @@
+#!/bin/sh
+
+function tmux-mdi
+{
+  tmux start-server
+
+  doesTmuxSessionExist "mdi" && echo "Tmux session mdi already exists" && return
+
+  # Create the a session named, 'mdi', whose first window is called, 'root'
+  tmux new-session -d -s mdi -n root
+
+      # Split the 'root' window vertically, and split the right pane horizontally
+      tmux split-window -h -t mdi:0 # -h actually means split vertically
+      tmux split-window -v -t mdi:0.right #-v actually means split horizontally
+
+      # Make all of them root panels
+      tmux send-keys -t mdi:0.left "sudo su" C-m
+      tmux send-keys -t mdi:0.top-right "sudo su" C-m
+      tmux send-keys -t mdi:0.bottom-right "sudo su" C-m
+      
+      # Set initial directories
+      tmux send-keys -t mdi:0.left "cd /root" C-m
+      tmux send-keys -t mdi:0.top-right "cd /etc/portage/" C-m
+      tmux send-keys -t mdi:0.bottom-right "tail -f /var/log/emerge.log" C-m
+
+
+  # Create a jetty window
+  tmux new-window -t mdi:1 -n jetty
+      
+    tmux split-window -h -t mdi:1 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:1.left "cd /home/quy/bin/jetty" C-m
+    tmux send-keys -t mdi:1.right "cd /tmp" C-m
+
+  # Create a modules window
+  tmux new-window -t mdi:2 -n modules
+
+    tmux split-window -h -t mdi:2 # -h actually means split vertically
+    tmux split-window -v -t mdi:2.right #-v actually means split horizontally
+    
+    tmux send-keys -t mdi:2.left "cd /home/quy/projects/mdi/core/modules" C-m
+    tmux send-keys -t mdi:2.top-right "cd /home/quy/projects/mdi" C-m
+    tmux send-keys -t mdi:2.bottom-right "cd /home/quy/projects/mdi" C-m
+
+  # Create an ear window
+  tmux new-window -t mdi:3 -n ear
+
+    tmux split-window -h -t mdi:3 # -h actually means split vertically
+    tmux split-window -v -t mdi:3.right #-v actually means split horizontally
+    
+    tmux send-keys -t mdi:3.left "cd /home/quy/projects/mdi/ear/creditUnions" C-m
+    tmux send-keys -t mdi:3.top-right "cd /home/quy/projects/mdi/ear/META-INF/; vim application.xml" C-m
+    tmux send-keys -t mdi:3.bottom-right "cd /home/quy/projects/mdi/ear" C-m
+
+  tmux select-window -t mdi:0
+  tmux select-pane -L -t mdi:0
+
+  tmux attach-session -t mdi
+}
+
+function doesTmuxSessionExist
+{
+    local session=$1
+    tmux list-sessions | grep -q $session
+}
