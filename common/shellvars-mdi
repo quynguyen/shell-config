@@ -1,33 +1,48 @@
 #!/bin/sh
 
 export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
+export MDI_HOME=$HOME/projects/mdi
 
 ##########################################
 # Ear 1
 ##########################################
 
-export MDI_HOME=$HOME/projects/mdi
 export stdforms=/home/quy/projects/stdforms
 export mdi=/home/quy/projects/mdi
 export core=$mdi/core
+export modules=$core/modules
 export ear=$mdi/ear
 export cu=$ear/creditUnions
-export resources=$ear/core/Resources.war
-export war=$ear/core/mdWebApp.war
-export modules=$core/modules
-export mdwebapp=$core/md-webapp
+export resources=$modules/com.cucbc.resources.webapp
+export resourcesWebapp=$resources/src/main/webapp
+export resourcesWar=$ear/core/Resources.war
+export md=$core/com.cucbc.md.webapp
+export mdWebapp=$md/src/main/webapp
+export mdWar=$ear/core/mdWebApp.war
+export classic=$modules/com.cucbc.mdclassic
+export classicWebapp=$classic/main/webapp
+export classicWar=$ear/mdClassic.war
+export mdo=$classic
+export mdoWebapp=$classicWebapp
+export mdoWar=$classicWar
+export psd=$modules/net.paymentstream.webapp
+export psdWebapp=$psd/src/main/webapp
+export psdWar=$ear/paymentstream.war
 
 #MDi JPTree
-export rjptree=$core/modules/com.cucbc.md.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for MDi
-export ojptree=$ear/JPTree #Ops controlled MDi JPTree
-export wjptree=$ear/core/mdWebApp.war/WEB-INF/JPTree #The deployed Root JPTree for MDi
+export rjptree=$mdWebapp/WEB-INF/JPTree #Root JPTree for MDi
+export wjptree=$mdWar/WEB-INF/JPTree #The deployed Root JPTree for MDi
 #MD6 JPTree
-export crjptree=$core/modules/com.cucbc.mdclassic/src/main/webapp/WEB-INF/JPTree #Root JPTree for MD6
+export crjptree=$mdoWebapp/WEB-INF/JPTree #Root JPTree for MD6
+export cwjptree=$mdoWar/WEB-INF/JPTree #The deployed Root JPTree for MD6
 export cojptree=$ear/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
-export cwjptree=$ear/mdClassic.war/WEB-INF/JPTree #The deployed Root JPTree for MD6
 #PSD JPTree
-export prjptree=$core/modules/net.paymentstream.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for PSD
-export pwjptree=$ear/paymentstream.war/WEB-INF/JPTree/
+export prjptree=$psdWebapp/WEB-INF/JPTree #Root JPTree for PSD
+export pwjptree=$psdWar/WEB-INF/JPTree/
+export posjptree=$psdWebapp/cuConfig #Ops controlled MD6 JPTree
+export pojptree=$psdWar/cuConfig #Ops controlled MD6 JPTree
+#Ops JPTree
+export ojptree=$ear/JPTree #Ops controlled MDi JPTree
 
 export generic=$ear/creditUnions/internal/generic.war
 export easysavings=$ear/creditUnions/internal/easysavings.war
@@ -43,24 +58,38 @@ export interior=$ear/creditUnions/bc/interior.war
 
 export mdi2=/home/quy/projects/mdi-trunk2
 export core2=$mdi2/core
+export modules2=$core2/modules
 export ear2=$mdi2/ear
 export cu2=$ear2/creditUnions
-export resources2=$ear2/core/resources.war
-export war2=$ear2/core/mdWebApp.war
-export modules2=$core2/modules
-export mdwebapp2=$core2/md-webapp
+export resources2=$modules2/com.cucbc.resources.webapp
+export resourcesWebapp2=$resources2/src/main/webapp
+export resourcesWar2=$ear2/core/Resources.war
+export md2=$core2/com.cucbc.md.webapp
+export mdWebapp2=$md2/src/main/webapp
+export mdWar2=$ear2/core/mdWebApp.war
+export classic2=$modules2/com.cucbc.mdclassic
+export classicWebapp2=$classic2/main/webapp
+export classicWar2=$ear2/mdClassic.war
+export mdo2=$classic2
+export mdoWebapp2=$classicWebapp2
+export mdoWar2=$classicWar2
+export psd2=$modules2/net.paymentstream.webapp
+export psdWebapp2=$psd2/src/main/webapp
+export psdWar2=$ear2/paymentstream.war
 
-#mdi JPTree
-export rjptree2=$core2/modules/com.cucbc.md.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for mdi2
-export ojptree2=$ear2/JPTree #Ops controlled mdi2 JPTree
-export wjptree2=$ear2/core/mdWebApp.war/WEB-INF/JPTree #The deployed Root JPTree for mdi2
+#MDi JPTree
+export rjptree2=$mdWebapp2/WEB-INF/JPTree #Root JPTree for MDi
+export wjptree2=$mdWar2/WEB-INF/JPTree #The deployed Root JPTree for MDi
 #MD6 JPTree
-export crjptree2=$core2/modules/com.cucbc.mdclassic/src/main/webapp/WEB-INF/JPTree #Root JPTree for MD6
+export crjptree2=$mdoWebapp2/WEB-INF/JPTree #Root JPTree for MD6
+export cwjptree2=$mdoWar2/WEB-INF/JPTree #The deployed Root JPTree for MD6
 export cojptree2=$ear2/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
-export cwjptree2=$ear2/mdClassic.war/WEB-INF/JPTree #The deployed Root JPTree for MD6
 #PSD JPTree
-export prjptree2=$core2/modules/net.paymentstream.webapp/src/main/webapp/WEB-INF/JPTree #Root JPTree for PSD
-export pwjptree2=$ear2/paymentstream.war/WEB-INF/JPTree/
+export prjptree2=$psdWebapp2/WEB-INF/JPTree #Root JPTree for PSD
+export pwjptree2=$psdWar2/WEB-INF/JPTree/
+export pojptree2=$psdWar2/cuConfig #Ops controlled MD6 JPTree
+#Ops JPTree
+export ojptree2=$ear2/JPTree #Ops controlled MDi JPTree
 
 export generic2=$ear2/creditUnions/internal/generic.war
 export easysavings2=$ear2/creditUnions/internal/easysavings.war
