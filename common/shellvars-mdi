@@ -16,7 +16,7 @@ export cu=$ear/creditUnions
 export resources=$modules/com.cucbc.resources.webapp
 export resourcesWebapp=$resources/src/main/webapp
 export resourcesWar=$ear/core/Resources.war
-export md=$core/com.cucbc.md.webapp
+export md=$modules/com.cucbc.md.webapp
 export mdWebapp=$md/src/main/webapp
 export mdWar=$ear/core/mdWebApp.war
 export classic=$modules/com.cucbc.mdclassic
@@ -35,7 +35,7 @@ export wjptree=$mdWar/WEB-INF/JPTree #The deployed Root JPTree for MDi
 #MD6 JPTree
 export crjptree=$mdoWebapp/WEB-INF/JPTree #Root JPTree for MD6
 export cwjptree=$mdoWar/WEB-INF/JPTree #The deployed Root JPTree for MD6
-export cojptree=$ear/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
+export cojptree=$mdoWar/cuConfig #Ops controlled MD6 JPTree
 #PSD JPTree
 export prjptree=$psdWebapp/WEB-INF/JPTree #Root JPTree for PSD
 export pwjptree=$psdWar/WEB-INF/JPTree/
@@ -64,7 +64,7 @@ export cu2=$ear2/creditUnions
 export resources2=$modules2/com.cucbc.resources.webapp
 export resourcesWebapp2=$resources2/src/main/webapp
 export resourcesWar2=$ear2/core/Resources.war
-export md2=$core2/com.cucbc.md.webapp
+export md2=$modules2/com.cucbc.md.webapp
 export mdWebapp2=$md2/src/main/webapp
 export mdWar2=$ear2/core/mdWebApp.war
 export classic2=$modules2/com.cucbc.mdclassic
@@ -83,7 +83,7 @@ export wjptree2=$mdWar2/WEB-INF/JPTree #The deployed Root JPTree for MDi
 #MD6 JPTree
 export crjptree2=$mdoWebapp2/WEB-INF/JPTree #Root JPTree for MD6
 export cwjptree2=$mdoWar2/WEB-INF/JPTree #The deployed Root JPTree for MD6
-export cojptree2=$ear2/mdClassic.war/cuConfig #Ops controlled MD6 JPTree
+export cojptree2=$mdoWar2/cuConfig #Ops controlled MD6 JPTree
 #PSD JPTree
 export prjptree2=$psdWebapp2/WEB-INF/JPTree #Root JPTree for PSD
 export pwjptree2=$psdWar2/WEB-INF/JPTree/
