@@ -1,0 +1,6 @@
+#!/bin/sh
+
+function pwdp()
+{
+    cd `xsel -o -b`
+}
