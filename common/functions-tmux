@@ -1,10 +1,35 @@
 #!/bin/sh
 
+function tmux-scala
+{
+  tmux start-server
+
+  doesTmuxSessionExist "scala" && return
+
+  # Create the a session named, 'mdi', whose first window is called, 'root'
+  tmux new-session -d -s scala -n main
+    # Split the 'root' window vertically, and split the right pane horizontally
+    tmux split-window -h -t scala:0 # -h actually means split vertically
+    tmux split-window -v -t scala:0.right #-v actually means split horizontally
+
+    # Set initial directories
+    tmux send-keys -t scala:0.left "cd $PWD; scala" C-m
+    tmux send-keys -t scala:0.top-right "cd $PWD; clear" C-m
+    tmux send-keys -t scala:0.bottom-right "cd $PWD; watch tree" C-m
+
+  # Select the first window
+  tmux select-pane -L -t scala:0
+  tmux select-window -t scala:0
+
+  # Attach the session
+  tmux attach-session -t scala
+}
+
 function tmux-mdi
 {
   tmux start-server
 
-  doesTmuxSessionExist "mdi" && echo "Tmux session mdi already exists" && return
+  doesTmuxSessionExist "mdi" && return
 
   # Create the a session named, 'mdi', whose first window is called, 'root'
   tmux new-session -d -s mdi -n root
@@ -100,4 +125,7 @@ function doesTmuxSessionExist
 {
     local session=$1
     tmux list-sessions | grep -q $session
+    local exists=$?
+    [ $exists == 0 ] && echo "Tmux session $session already exists"
+    return $exists
 }
