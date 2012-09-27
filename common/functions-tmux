@@ -1,25 +1,53 @@
 #!/bin/sh
 
+
+function tmux-kill()
+{
+    tmux kill-session -t $1
+}
+
+function tmux-attach()
+{
+    tmux attach -t $1
+}
+
 function tmux-scala
 {
   tmux start-server
 
-  doesTmuxSessionExist "scala" && return
+  doesTmuxSessionExist "scala" && tmux-attach scala
+
+  local startingDir=$PWD
 
   # Create the a session named, 'mdi', whose first window is called, 'root'
-  tmux new-session -d -s scala -n main
-    # Split the 'root' window vertically, and split the right pane horizontally
+  tmux new-session -d -s scala -n root
     tmux split-window -h -t scala:0 # -h actually means split vertically
     tmux split-window -v -t scala:0.right #-v actually means split horizontally
 
+    tmux send-keys -t mdi:0.left "cd $startingDir; clear" C-m
+    tmux send-keys -t mdi:0.top-right "cd $startingDir; clear" C-m
+
+    tmux select-pane -L -t scala:0
+
+  # Create Split Window
+  tmux new-window -t scala:1 -n scala
+    tmux split-window -h -t scala:1 # -h actually means split vertically
+    tmux split-window -v -t scala:1.right #-v actually means split horizontally
+
     # Set initial directories
-    tmux send-keys -t scala:0.left "cd $PWD; scala" C-m
-    tmux send-keys -t scala:0.top-right "cd $PWD; clear" C-m
-    tmux send-keys -t scala:0.bottom-right "cd $PWD; watch tree" C-m
+    tmux send-keys -t scala:1.left "cd $startingDir; clear" C-m
+    tmux send-keys -t scala:1.top-right "cd $startingDir; clear; sbt" C-m
+    tmux send-keys -t scala:1.bottom-right "cd $startingDir; watch tree" C-m
+  
+    tmux select-pane -L -t scala:1
+
+  tmux new-window -t scala:2 -n repl
+
+    # Set initial directories
+    tmux send-keys -t scala:2 "cd $startingDir; scala" C-m
 
   # Select the first window
-  tmux select-pane -L -t scala:0
-  tmux select-window -t scala:0
+  tmux select-window -t scala:1
 
   # Attach the session
   tmux attach-session -t scala
@@ -29,7 +57,7 @@ function tmux-mdi
 {
   tmux start-server
 
-  doesTmuxSessionExist "mdi" && return
+  doesTmuxSessionExist "mdi" && tmux-attach mdi
 
   # Create the a session named, 'mdi', whose first window is called, 'root'
   tmux new-session -d -s mdi -n root
