@@ -15,7 +15,7 @@ function tmux-scala
 {
   tmux start-server
 
-  doesTmuxSessionExist "scala" && tmux-attach scala
+  doesTmuxSessionExist "scala" && tmux-attach scala && return
 
   local startingDir=$PWD
 
@@ -57,7 +57,7 @@ function tmux-mdi
 {
   tmux start-server
 
-  doesTmuxSessionExist "mdi" && tmux-attach mdi
+  doesTmuxSessionExist "mdi" && tmux-attach mdi && return
 
   # Create the a session named, 'mdi', whose first window is called, 'root'
   tmux new-session -d -s mdi -n root
