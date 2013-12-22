@@ -5,11 +5,11 @@ alias imvn2='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/maven2/bin/mvn -s ~/proje
 alias imvn='imvn3'
 alias imvnT='imvn3 -T C1'
 alias mc='imvn -P clean-all clean'
-alias mi='imvn install'
-alias mj='imvn -DskipTests install'
-alias mt='imvn test'
+alias mi='imvn -NB install'
+alias mj='imvn -NB -DskipTests install'
+alias mt='imvn -NB test'
 alias me='imvn eclipse:eclipse -DdownloadSources=true -DdownloadJavadocs=true'
-alias ma='mc && mi && me'
+alias ma='mc && imvn install && me'
 alias maa='ma && kalarm "MDi Build Done"'
 alias mu="cd $mdi && svn update && cd $modules && maa && cd $rjptree && linkprops && cd $modules"
 
