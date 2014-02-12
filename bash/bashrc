@@ -2,7 +2,7 @@
 
 #CD Args
 [ -f /usr/share/cdargs/cdargs-bash.sh ] && source /usr/share/cdargs/cdargs-bash.sh
-
+[ -f /usr/share/doc/cdargs/examples/cdargs-bash.sh ] && source /usr/share/doc/cdargs/examples/cdargs-bash.sh
 
 # Bash Completion
 [ -f /etc/profile.d/bash-completion.sh ] && source /etc/profile.d/bash-completion.sh
