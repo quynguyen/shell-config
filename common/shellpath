@@ -16,8 +16,9 @@ export SCALA_HOME=/opt/scala
 export ANDROID_HOME=/opt/android-sdk-update-manager
 export JREBEL_HOME=/opt/jrebel
 export SBT_HOME=/opt/sbt
+export GRADLE_HOME=/opt/gradle
 export IDEA_HOME=/opt/idea
-export PATH=$PATH:$IDEA_HOME/bin:$JBOSS_HOME/bin:$MAVEN_HOME/bin:$GROOVY_HOME/bin:$GANT_HOME/bin:$SCALA_HOME/bin:$ANDROID_HOME/tools:$GRAILS_HOME/bin:$ANDROID_HOME/platform-tools:$SBT_HOME/bin
+export PATH=$PATH:$IDEA_HOME/bin:$GRADLE_HOME/bin:$JBOSS_HOME/bin:$MAVEN_HOME/bin:$GROOVY_HOME/bin:$GANT_HOME/bin:$SCALA_HOME/bin:$ANDROID_HOME/tools:$GRAILS_HOME/bin:$ANDROID_HOME/platform-tools:$SBT_HOME/bin
 
 export m2=/home/quy/.m2/repository
 export downloads=/home/quy/downloads

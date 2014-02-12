@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
-export MDI_HOME=$HOME/projects/mdi
+export MDI_HOME=/home/quy/projects/mdi
 
 ##########################################
 # Ear 1
@@ -12,7 +12,12 @@ export mdi=/home/quy/projects/mdi
 export core=$mdi/core
 export modules=$core/modules
 export ear=$mdi/ear
+export classes=$ear/APP-INF/classes
+export lib=$ear/APP-INF/lib
+export meta=$ear/META-INF/
 export cu=$ear/creditUnions
+export devprops=$modules/com.cucbc.ear/src/main/config/dev-props
+export sitemap=$modules/com.cucbc.devcontent.webapp/src/main/webapp/sharedSitemap/
 export resources=$modules/com.cucbc.resources.webapp
 export resourcesWebapp=$resources/src/main/webapp
 export resourcesWar=$ear/core/Resources.war
@@ -60,10 +65,15 @@ export mdi2=/home/quy/projects/mdi-trunk2
 export core2=$mdi2/core
 export modules2=$core2/modules
 export ear2=$mdi2/ear
+export classes2=$ear2/APP-INF/classes
+export lib2=$ear2/APP-INF/lib
+export meta2=$ear2/ear/META-INF/
 export cu2=$ear2/creditUnions
 export resources2=$modules2/com.cucbc.resources.webapp
 export resourcesWebapp2=$resources2/src/main/webapp
 export resourcesWar2=$ear2/core/Resources.war
+export devprops2=$modules2/com.cucbc.ear/src/main/config/dev-props
+export sitemap2=$modules2/com.cucbc.devcontent.webapp/src/main/webapp/sharedSitemap/
 export md2=$modules2/com.cucbc.md.webapp
 export mdWebapp2=$md2/src/main/webapp
 export mdWar2=$ear2/core/mdWebApp.war

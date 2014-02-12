@@ -6,9 +6,19 @@ alias do-cvs-update="cvs -Q update -dP"
 alias ll="ls -l"
 alias lt="ls -ltr"
 alias cb="cdb -b"
+alias grep="grep --colour=auto"
 
 #svn
 alias st="svn stat"
 
 #git
 alias gs="git status"
+
+#Set Linux equivalents for OS's pbcopy and pbpaste, which are commandline tools for pushing and popping stuff into system clipboard.
+if [ `which xsel 2> /dev/null` ]; then
+	alias pbcopy='xsel --clipboard --input'
+	alias pbpaste='xsel --clipboard --output'
+elif [ `which xclip 2> /dev/null` ]; then
+	alias pbcopy='xclip -selection clipboard'
+	alias pbpaste='xclip -selection clipboard -o'
+fi

@@ -4,3 +4,25 @@ function pwdp()
 {
     cd `xsel -o -b`
 }
+
+function getOsSpecificFile()
+{
+    local sourceFile=$1
+    local prefix=${1%.*}
+    local extension=${1#*.}
+    local os=`uname`
+
+    local osSourceFile=""
+
+    if [ -z $extension ]; then
+        osSourceFile="${prefix}-${os}"
+    else
+        osSourceFile="${prefix}-${os}.${extension}"
+    fi
+
+    if [ -e $osSourceFile ]; then
+        echo $osSourceFile
+    else
+        echo $sourceFile
+    fi
+}
