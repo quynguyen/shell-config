@@ -5,6 +5,11 @@ function pwdp()
     cd `xsel -o -b`
 }
 
+function pp()
+{
+    pwdp
+}
+
 function getOsSpecificFile()
 {
     local sourceFile=$1
