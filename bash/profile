@@ -4,7 +4,7 @@ pushd $( dirname $BASH_SOURCE ) > /dev/null # go there the directory of this cur
 
 source ../common/profile
 source bashrc
-source gitprompt
+source ./montymagic-bash-git-prompt/gitprompt.sh
 source npm-completion
 
 popd  > /dev/null # go back to working directory ( quietly )
