@@ -1,14 +1,13 @@
 #!/bin/sh
 
 export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
-export MDI_HOME=/home/quy/projects/mdi
+export MDI_HOME=~/projects/mdi
 
 ##########################################
 # Ear 1
 ##########################################
 
-export stdforms=/home/quy/projects/stdforms
-export mdi=/home/quy/projects/mdi
+export mdi=$MDI_HOME
 export core=$mdi/core
 export modules=$core/modules
 export ear=$mdi/ear
@@ -61,7 +60,7 @@ export interior=$ear/creditUnions/bc/interior.war
 # Ear 2
 ##########################################
 
-export mdi2=/home/quy/projects/mdi-trunk2
+export mdi2=~/projects/mdi-trunk2
 export core2=$mdi2/core
 export modules2=$core2/modules
 export ear2=$mdi2/ear
@@ -114,8 +113,8 @@ export interior2=$ear2/creditUnions/bc/interior.war
 ##########################################
 
 # support
-export projects=/home/quy/projects
-export support=/home/quy/support
+export projects=~/projects
+export support=~/support
 export pos=$support/problems
 export cos=$support/change-orders
 export req=$support/requests
