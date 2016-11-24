@@ -15,8 +15,8 @@ export LANGVAR=en_US.UTF-8
 #export DISTCC_DIR=/var/tmp/portage/.distcc/
 #export DISTCC_HOSTS="173.17.49.159 172.17.68.233 172.17.56.73 172.17.48.136"
 
-export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=1024m -noverify -javaagent:$JREBEL_HOME/jrebel.jar" 
-export GRADLE_OPTS="-Xmx1024m -XX:MaxPermSize=128M -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,suspend=n,server=y -javaagent:/opt/idea-IU-133.286/plugins/Groovy/lib/agent/gragent.jar"
+export MAVEN_OPTS="-Xmx1024m -noverify" 
+export GRADLE_OPTS="-Xmx1024m -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,suspend=n,server=y -javaagent:/opt/idea-IU-133.286/plugins/Groovy/lib/agent/gragent.jar"
 
 
 # Project scripts
