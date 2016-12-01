@@ -1,24 +1,12 @@
 #!/bin/sh
 
-# Paths
-export ANDROID_HOME=/opt/android-sdk
-export ANT_HOME=/usr/share/ant
-export ANT_OPTS=-Xmx128M
-export CVSROOT=/usr/local/cvsroot
-export JAVA_HOME=/opt/java
-export JETTY_HOME=/opt/jetty
-export JBOSS_HOME=/home/quy/bin/jboss
-export GROOVY_HOME=/opt/groovy
-export GANT_HOME=/opt/gant
-export GRAILS_HOME=/opt/grails
-export MAVEN_HOME=/opt/maven
-export SCALA_HOME=/opt/scala
-export ANDROID_HOME=/opt/android-sdk-update-manager
-export JREBEL_HOME=/opt/jrebel
-export SBT_HOME=/opt/sbt
-export GRADLE_HOME=/opt/gradle
-export IDEA_HOME=/opt/idea
-export PATH=$PATH:$IDEA_HOME/bin:$GRADLE_HOME/bin:$JBOSS_HOME/bin:$MAVEN_HOME/bin:$GROOVY_HOME/bin:$GANT_HOME/bin:$SCALA_HOME/bin:$ANDROID_HOME/tools:$GRAILS_HOME/bin:$ANDROID_HOME/platform-tools:$SBT_HOME/bin
 
-export m2=/home/quy/.m2/repository
-export downloads=/home/quy/downloads
+[ -z "$ENV" ] && export ENV="$HOME/.env";
+[ -z "$OPT" ] && export OPT="$ENV/opt";
+[ -z "$BIN" ] && export BIN="$ENV/bin";
+
+[ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects";
+
+[ -z "$NPM_MODULES" ] && export NPM_MODULES=~/.npm-packages
+
+export PATH=$BIN:$NPM_MODULES/bin:$PATH

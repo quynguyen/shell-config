@@ -1,7 +1,10 @@
 #!/bin/sh
 
 export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
-export MDI_HOME=~/projects/mdi
+
+[ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects";
+
+export MDI_HOME=~$PROJECTS/mdi
 
 ##########################################
 # Ear 1
@@ -113,7 +116,6 @@ export interior2=$ear2/creditUnions/bc/interior.war
 ##########################################
 
 # support
-export projects=~/projects
 export support=~/support
 export pos=$support/problems
 export cos=$support/change-orders

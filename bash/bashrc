@@ -1,21 +1,15 @@
 #!/bin/sh
 
 #CD Args
-[ -f /usr/share/cdargs/cdargs-bash.sh ] && source /usr/share/cdargs/cdargs-bash.sh
 [ -f /usr/share/doc/cdargs/examples/cdargs-bash.sh ] && source /usr/share/doc/cdargs/examples/cdargs-bash.sh
 
 # Bash Completion
-[ -f /etc/profile.d/bash-completion.sh ] && source /etc/profile.d/bash-completion.sh
+[ -f /usr/share/bash-completion/bash_completion ] && /usr/share/bash-completion/bash_completion
 
 umask 002
 
-export PATH=~/bin:$PATH
-
 # Set commandline input style to emacs
 set -o emacs
-
-# Disable Terminal PC Speaker
-setterm -blength 0
 
 #When running two bash windows, allow both to write to the history, not one stomping the other
 shopt -s histappend
@@ -30,6 +24,9 @@ shopt -s cmdhist
 if [ $DISPLAY ] && ! [ $USER == root ]; then
 	# Disable PC Speaker in X
 	xset b off
+	
+	# Disable Terminal PC Speaker
+	setterm -blength 0
 	
 	# Allow terminals from remote/local addresses to connect to this X11 Server
 	xhost +localhost

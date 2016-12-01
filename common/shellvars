@@ -11,16 +11,5 @@ export CVSUMASK=002
 export LANG=en_US.utf8
 export LANGVAR=en_US.UTF-8
 
-# Gentoo Stuff
-#export DISTCC_DIR=/var/tmp/portage/.distcc/
-#export DISTCC_HOSTS="173.17.49.159 172.17.68.233 172.17.56.73 172.17.48.136"
-
-export MAVEN_OPTS="-Xmx1024m -noverify" 
-export GRADLE_OPTS="-Xmx1024m -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,suspend=n,server=y -javaagent:/opt/idea-IU-133.286/plugins/Groovy/lib/agent/gragent.jar"
-
-
-# Project scripts
-export scripts=$HOME/projects/scripts
-
 # GITHUB
 export GITHUB=git@github.com:quynguyen
