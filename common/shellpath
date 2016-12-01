@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-[ -z "$ENV" ] && export ENV="$HOME/.env";
-[ -z "$OPT" ] && export OPT="$ENV/opt";
+[ -z "$ENV" ] && export ENV="$HOME/.shell";
+[ -z "$APP" ] && export OPT="$ENV/apps";
 [ -z "$BIN" ] && export BIN="$ENV/bin";
 
 [ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects";

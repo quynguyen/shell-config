@@ -1,0 +1,7 @@
+#!/bin/sh
+
+
+export IDEA_HOME=$APP/idea
+export WEBSTORM_HOME=$APP/webstorm
+export VSCODE_HOME=$APP/vscode
+export VSCODE_INSIDER_HOME=$APP/vscode-insider
