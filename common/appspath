@@ -1,7 +1,7 @@
 #!/bin/sh
 
+export IDEA_HOME=$APPLINKS/idea
+export WEBSTORM_HOME=$APPLINKS/webstorm
+export VSCODE_HOME=$APPLINKS/vscode
 
-export IDEA_HOME=$APP/idea
-export WEBSTORM_HOME=$APP/webstorm
-export VSCODE_HOME=$APP/vscode
-export VSCODE_INSIDER_HOME=$APP/vscode-insider
+export JETTY_HOME=$APPLINKS/jetty
