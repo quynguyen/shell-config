@@ -3,16 +3,14 @@
 [ -z "$ENV" ] && export ENV="$HOME/.shell"
 [ -z "$BIN" ] && export BIN="$ENV/bin"
 
-[ -Z "$APPLINKS" ] && export STORAGE="$ENV/applinks"
+[ -z "$APPS" ]     && export APPS="$ENV/apps"
+[ -z "$CACHES" ]   && export CACHES="$ENV/caches"
 [ -z "$DOTFILES" ] && export DOTFILES="$ENV/dotfiles"
+[ -z "$OPT" ]      && export OPT="$ENV/opt"
 [ -z "$OVERLAYS" ] && export OVERLAYS="$ENV/overlays"
 
-[ -Z "$STORAGE" ] && export STORAGE="$ENV/storage"
-[ -Z "$APPS" ] && export STORAGE="$ENV/storage/apps"
-[ -Z "$CACHES" ] && export STORAGE="$ENV/storage/caches"
-
+[ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects"
 [ -z "$NPM_MODULES" ] && export NPM_MODULES=~/.npm-packages
 
-[ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects";
 
 export PATH=$BIN:$NPM_MODULES/bin:$PATH

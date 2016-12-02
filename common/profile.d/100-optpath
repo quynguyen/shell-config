@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export JAVA_HOME=$OPT/java
+export JETTY_HOME=$OPT/jetty
+
+export PATH=$JAVA_HOME/bin:$JETTY_HOME/bin:$PATH

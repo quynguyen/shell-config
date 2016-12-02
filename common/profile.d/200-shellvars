@@ -1,1 +1,15 @@
-../shellvars
+#!/bin/sh
+
+# Set the PAGER program to be 'less'.  The "-i" option is for case-insensitive searching
+export EDITOR="/usr/bin/vim"
+export PAGER="/usr/bin/less -i"
+
+# CVS
+export CVSUMASK=002
+
+# To make the French Characters Look Sweet
+export LANG=en_US.utf8
+export LANGVAR=en_US.UTF-8
+
+# GITHUB
+export GITHUB=git@github.com:quynguyen

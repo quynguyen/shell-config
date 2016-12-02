@@ -1,1 +1,192 @@
-../functions-tmux
+#!/bin/sh
+
+
+function tmux-kill()
+{
+    tmux kill-session -t $1
+}
+
+function tmux-attach()
+{
+    tmux attach -t $1
+}
+
+function tmux-scala
+{
+  tmux start-server
+
+  doesTmuxSessionExist "scala" && tmux-attach scala && return
+
+  local startingDir=$PWD
+
+  # Create the a session named, 'mdi', whose first window is called, 'root'
+  tmux new-session -d -s scala -n root
+    tmux split-window -h -t scala:0 # -h actually means split vertically
+    tmux split-window -v -t scala:0.right #-v actually means split horizontally
+
+    tmux send-keys -t mdi:0.left "cd $startingDir; clear" C-m
+    tmux send-keys -t mdi:0.top-right "cd $startingDir; clear" C-m
+
+    tmux select-pane -L -t scala:0
+
+  # Create Split Window
+  tmux new-window -t scala:1 -n scala
+    tmux split-window -h -t scala:1 # -h actually means split vertically
+    tmux split-window -v -t scala:1.right #-v actually means split horizontally
+
+    # Set initial directories
+    tmux send-keys -t scala:1.left "cd $startingDir; clear" C-m
+    tmux send-keys -t scala:1.top-right "cd $startingDir; clear; sbt" C-m
+    tmux send-keys -t scala:1.bottom-right "cd $startingDir; watch tree" C-m
+  
+    tmux select-pane -L -t scala:1
+
+  tmux new-window -t scala:2 -n repl
+
+    # Set initial directories
+    tmux send-keys -t scala:2 "cd $startingDir; scala" C-m
+
+  # Select the first window
+  tmux select-window -t scala:1
+
+  # Attach the session
+  tmux attach-session -t scala
+}
+
+function tmux-mdi
+{
+  tmux start-server
+
+  doesTmuxSessionExist "mdi" && tmux-attach mdi && return
+
+  # Create the a session named, 'mdi', whose first window is called, 'root'
+  tmux new-session -d -s mdi -n root
+
+    # Split the 'root' window vertically, and split the right pane horizontally
+    tmux split-window -h -t mdi:0 # -h actually means split vertically
+    tmux split-window -v -t mdi:0.right #-v actually means split horizontally
+
+    # Make all of them root panels
+    tmux send-keys -t mdi:0.left "sudo su" C-m
+    tmux send-keys -t mdi:0.top-right "sudo su" C-m
+    tmux send-keys -t mdi:0.bottom-right "sudo su" C-m
+    
+    # Set initial directories
+    tmux send-keys -t mdi:0.left "cd /root; clear" C-m
+    tmux send-keys -t mdi:0.top-right "cd /etc/portage/; clear" C-m
+    tmux send-keys -t mdi:0.bottom-right "tail -f /var/log/emerge.log" C-m
+    
+    tmux select-pane -L -t mdi:0
+
+  # Create a jetty window
+  tmux new-window -t mdi:1 -n jetty
+      
+    tmux split-window -h -t mdi:1 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:1.left "cd /home/quy/bin/jetty; clear" C-m
+    tmux send-keys -t mdi:1.right "cd /tmp; clear" C-m
+
+    tmux select-pane -L -t mdi:1
+
+  # Create a modules window
+  tmux new-window -t mdi:2 -n modules
+
+    tmux split-window -h -t mdi:2 # -h actually means split vertically
+    tmux split-window -v -t mdi:2.right #-v actually means split horizontally
+    
+    tmux send-keys -t mdi:2.left "cd $modules; clear" C-m
+    tmux send-keys -t mdi:2.left "auto-kinit" C-m
+    tmux send-keys -t mdi:2.top-right "cd $mdi; clear " C-m
+    tmux send-keys -t mdi:2.bottom-right "cd $mdi; clear" C-m
+
+    tmux select-pane -L -t mdi:2
+
+  # Create an ear window
+  tmux new-window -t mdi:3 -n ear
+
+    tmux split-window -h -t mdi:3 # -h actually means split vertically
+    tmux split-window -v -t mdi:3.right #-v actually means split horizontally
+    
+    tmux send-keys -t mdi:3.left "cd $cu; clear" C-m
+    tmux send-keys -t mdi:3.top-right "clear; cd $ear/META-INF/; vim application.xml" C-m
+    tmux send-keys -t mdi:3.bottom-right "cd $ear; clear" C-m
+
+    tmux select-pane -L -t mdi:3
+
+  # Create an Root JPTree  window
+  tmux new-window -t mdi:4 -n "Root"
+
+    tmux split-window -h -t mdi:4 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:4.left "cd $rjptree" C-m
+    tmux send-keys -t mdi:4.right "cd $wjptree" C-m
+
+    tmux select-pane -L -t mdi:4
+
+  # Create a PSD Root JPTree Window
+  tmux new-window -t mdi:5 -n "Root PSD"
+
+    tmux split-window -h -t mdi:5 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:5.left "cd $prjptree" C-m
+    tmux send-keys -t mdi:5.right "cd $pwjptree" C-m
+
+    tmux select-pane -L -t mdi:5
+
+  # Create a PSD CMS JPTree Window
+  tmux new-window -t mdi:6 -n "Cms PSD"
+
+    tmux split-window -h -t mdi:6 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:6.left "cd $posjptree" C-m
+    tmux send-keys -t mdi:6.right "cd $pojptree" C-m
+
+    tmux select-pane -L -t mdi:6
+
+  # Create a Ops JPTree Window
+  tmux new-window -t mdi:7 -n "Ops"
+
+    tmux split-window -h -t mdi:7 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:7.left "cd $ojptree" C-m
+    tmux send-keys -t mdi:7.right "cd $ojptree" C-m
+
+    tmux select-pane -L -t mdi:7
+
+  # Create a PSD Webapp
+  tmux new-window -t mdi:8 -n "PSD Webapp"
+
+    tmux split-window -h -t mdi:8 # -h actually means split vertically
+    tmux split-window -v -t mdi:8.right #-v actually means split horizontally
+    
+    tmux send-keys -t mdi:8.left "cd $psdWebapp" C-m
+    tmux send-keys -t mdi:8.bottom-right "cd $psd" C-m
+    tmux send-keys -t mdi:8.top-right "cd $md" C-m
+
+    tmux select-pane -L -t mdi:8
+
+  # Create a PSD Webapp
+  tmux new-window -t mdi:9 -n "ssh"
+
+    tmux split-window -h -t mdi:9 # -h actually means split vertically
+    
+    tmux send-keys -t mdi:9.left "clear" C-m
+    tmux send-keys -t mdi:9.right "cat ~/docs/servers" C-m
+
+    tmux select-pane -L -t mdi:9
+
+  # Select the root window
+  tmux select-window -t mdi:0
+
+  # Attach the session
+  tmux attach-session -t mdi
+}
+
+function doesTmuxSessionExist
+{
+    local session=$1
+    tmux list-sessions | grep -q $session
+    local exists=$?
+    [ $exists == 0 ] && echo "Tmux session $session already exists"
+    return $exists
+}

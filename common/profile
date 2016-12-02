@@ -4,6 +4,8 @@ pushd $( dirname ${BASH_SOURCE:-$0} ) > /dev/null # go there the directory of th
 
 source /etc/profile
 
+source ./core
+
 for s in profile.d/*; do
     source $s
 done

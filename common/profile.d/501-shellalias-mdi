@@ -1,1 +1,19 @@
-../shellalias-mdi
+#!/bin/sh
+
+alias imvn3='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/scripts/mvn'
+alias imvn2='MAVEN_OPTS="-Xmx256m" ~/projects/mdi/core/maven2/bin/mvn -s ~/projects/mdi/core/maven2/conf/settings.xml'
+alias imvn='imvn3'
+alias imvnT='imvn3 -T C1'
+alias mc='imvn -P clean-all clean'
+alias mi='imvn -NB install'
+alias mj='imvn -NB -DskipTests install'
+alias mt='imvn -NB test'
+alias me='imvn eclipse:eclipse -DdownloadSources=true -DdownloadJavadocs=true'
+alias ma='mc && imvn install && me'
+alias maa='ma && kalarm "MDi Build Done"'
+alias mu="cd $mdi && svn update && cd $modules && maa && cd $rjptree && linkprops && cd $modules"
+
+alias mcs='imvn checkstyle:checkstyle'
+alias mpmd='imvn pmd:pmd'
+alias mfb='imvn findbugs:findbugs'
+alias ms='imvn pmd:pmd findbugs:findbugs checkstyle:checkstyle aSonarReport:reportVs'
