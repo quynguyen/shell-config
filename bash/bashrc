@@ -3,9 +3,6 @@
 #CD Args
 [ -f /usr/share/doc/cdargs/examples/cdargs-bash.sh ] && source /usr/share/doc/cdargs/examples/cdargs-bash.sh
 
-# Bash Completion
-[ -f /usr/share/bash-completion/bash_completion ] && /usr/share/bash-completion/bash_completion
-
 umask 002
 
 # Set commandline input style to emacs
@@ -25,8 +22,8 @@ if [ $DISPLAY ] && ! [ $USER == root ]; then
 	# Disable PC Speaker in X
 	xset b off
 	
-	# Disable Terminal PC Speaker
-	setterm -blength 0
+	# Disable Terminal PC Speaker (if not in screen terminal)
+	[[ $TERM =~ .*screen.* ]]  || setterm -blength 0
 	
 	# Allow terminals from remote/local addresses to connect to this X11 Server
 	xhost +localhost

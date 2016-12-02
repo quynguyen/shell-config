@@ -1,16 +1,18 @@
 #!/bin/sh
+export STORE="$HOME/.store"
 
-[ -z "$ENV" ] && export ENV="$HOME/.shell"
-[ -z "$BIN" ] && export BIN="$ENV/bin"
+export APPSTORE="$STORE/apps"
 
-[ -z "$APPS" ]     && export APPS="$ENV/apps"
-[ -z "$CACHES" ]   && export CACHES="$ENV/caches"
-[ -z "$DOTFILES" ] && export DOTFILES="$ENV/dotfiles"
-[ -z "$OPT" ]      && export OPT="$ENV/opt"
-[ -z "$OVERLAYS" ] && export OVERLAYS="$ENV/overlays"
+export ENV="$HOME/.shell"
 
-[ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects"
-[ -z "$NPM_MODULES" ] && export NPM_MODULES=~/.npm-packages
+export BIN="$ENV/bin"
+export APPS="$ENV/apps"
+export DOTFILES="$ENV/dotfiles"
+export OVERLAYS="$ENV/overlays"
+export OPT="$ENV/opt"
+export STORELINK="$ENV/.store"
 
+export PROJECTS="$HOME/projects"
+export NPM_MODULES=~/.npm-packages
 
 export PATH=$BIN:$NPM_MODULES/bin:$PATH

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-export IDEA_HOME=$APPS/idea
-export WEBSTORM_HOME=$APPS/webstorm
-export VSCODE_HOME=$APPS/vscode
-
-export PATH=$IDEA_HOME/bin:$WEBSTORM_HOME/bin:$VSCODE_HOME/bin:$JETTY_HOME/bin:$PATH
+for app in $(ls $APPS); do
+	export PATH=$APPS/$app/bin:$PATH
+done
