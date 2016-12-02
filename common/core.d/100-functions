@@ -65,3 +65,35 @@ function dynamicLookup()
         echo $dir/$sourceFile
     fi
 }
+
+function apps() {
+	for app in $(ls $APPSTORE/.versions/); do
+		echo $app
+	done
+}
+
+function appLink() {
+	[ $# -eq 2 ] || {
+		echo "$0 <app name> <version>"
+		return 1
+	}
+
+	app=$1
+	version=$2
+	appPath=$APPS/$app
+	installedApp=$APPSTORE/.versions/$app
+
+	[ -d $installedApp ] || {
+		echo "$app isn't installed"
+		return 1
+	}
+
+	sourceLink=$APPSTORE/$app-$version
+
+	[ -d $sourceLink ] || {
+		echo "$sourceLink doesn't exist"
+		return 1
+	}
+
+	ln -vsnf $sourceLink $appPath
+}
