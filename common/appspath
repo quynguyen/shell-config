@@ -3,5 +3,6 @@
 export IDEA_HOME=$APPLINKS/idea
 export WEBSTORM_HOME=$APPLINKS/webstorm
 export VSCODE_HOME=$APPLINKS/vscode
-
 export JETTY_HOME=$APPLINKS/jetty
+
+export PATH=$IDEA_HOME/bin:$WEBSTORM_HOME/bin:$VSCODE_HOME/bin:$JETTY_HOME/bin:$PATH
