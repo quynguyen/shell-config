@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# Creates a symlink from $linkFile to $sourceFile
+# If $linkFile is a directory, that always exists
+# Then those existing contents will be copied
+#
+function relink(){
+	local sourceFile=$1
+	local linkFile=$2
+	local renamedLinkFile="${linkFile}-$(date +%^s)"
+
+	#Is the linkFile a directory that already exists
+	#.. and linkFile isn't pointing to the same location to the sourceFile
+	if [ -d $linkFile ] && [ ! $linkFile -ef $sourceFile ]; then
+		echo -----------------------------------------
+		echo "Renaming ${linkFile} to ${renamedLinkFile}"
+		echo -----------------------------------------
+		#rename it
+		mv -v $linkFile $renamedLinkFile
+	fi
+
+	#Create the symlinks in $HOME
+	ln -vsnf $sourceFile $linkFile; 
+
+	#Move over any existing files
+	if [ -d $renamedLinkFile ]; then
+		echo -----------------------------------------
+		echo "Moving files from ${renamedLinkFile} to ${linkFile}" 
+		echo -----------------------------------------
+		for existingFile in `ls $renamedLinkFile`; do 
+			if [ ! -e $linkFile/$existingFile ]; then
+				mv -v $renamedLinkFile/$existingFile $linkFile/
+				if [ -d $linkFile/.git ]; then
+					grep -q $existingFile $linkFile/.gitignore || echo $existingFile >> $linkFile/.gitignore
+				fi
+
+			fi
+		done
+		rm -vrf $renamedLinkFile
+		unset renamedLinkFile
+	fi
+}
+
+
+function dynamicLookup()
+{
+    local dir=$(dirname $1)
+    local sourceFile=$(basename $1)
+    local prefix=${sourceFile%.*}
+    local extension=$([[ "$sourceFile" = *.* ]] && echo ".${sourceFile##*.}" || echo '')
+    local os=`uname`
+
+    local osSourceFile=""
+    
+
+    if [ -z $extension ]; then
+        osSourceFile="${prefix}-${os}"
+    else
+        osSourceFile="${prefix}-${os}${extension}"
+    fi
+
+    if [ -e $dir/$osSourceFile ]; then
+        echo $dir/$osSourceFile
+    else
+        echo $dir/$sourceFile
+    fi
+}
