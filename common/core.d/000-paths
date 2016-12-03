@@ -3,7 +3,7 @@ export STORE="$HOME/.store"
 export APPSTORE="$STORE/apps"
 
 #... Incase it's not already set (don't want to constraint the location)
-[ -z $ENV ] export ENV="$HOME/.shell"
+[ -z "$ENV" ] && export ENV="$HOME/.shell"
 
 export BIN="$ENV/bin"
 export APPS="$ENV/apps"
