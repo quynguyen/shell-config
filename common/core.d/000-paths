@@ -1,14 +1,14 @@
 #!/bin/sh
 export STORE="$HOME/.store"
-
 export APPSTORE="$STORE/apps"
 
-export ENV="$HOME/.shell"
+#... Incase it's not already set (don't want to constraint the location)
+[ -z $ENV ] export ENV="$HOME/.shell"
 
 export BIN="$ENV/bin"
 export APPS="$ENV/apps"
-export DOTFILES="$ENV/dotfiles"
-export OVERLAYS="$ENV/overlays"
+export DOTFILES="$ENV/config/dotfiles"
+export OVERLAYS="$ENV/config/overlays"
 export OPT="$ENV/opt"
 export STORELINK="$ENV/.store"
 

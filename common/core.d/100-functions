@@ -1,5 +1,25 @@
 #!/bin/sh
 
+# Prints out the relative path between to absolute paths. Trivial.
+#
+# Parameters:
+# $1 = first path
+# $2 = second path
+#
+# Output: the relative path between 1st and 2nd paths
+function relative() {
+    local pos="${1%%/}" ref="${2%%/}" down=''
+
+    while :; do
+        test "$pos" = '/' && break
+        case "$ref" in $pos/*) break;; esac
+        down="../$down"
+        pos=${pos%/*}
+    done
+
+    echo "$down${ref##$pos/}"
+}
+
 # Creates a symlink from $linkFile to $sourceFile
 # If $linkFile is a directory, that always exists
 # Then those existing contents will be copied
