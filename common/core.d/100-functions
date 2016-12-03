@@ -20,6 +20,55 @@ function relative() {
     echo "$down${ref##$pos/}"
 }
 
+function moveAndLink()
+{
+	local sourceDir=$1
+	local destDir=$2
+	local name=$3
+
+	[ ! -d $destDir ] && \
+		echo "$destDir doest not exist" && return 1
+
+	[ -z $name ] && \
+		name=$(basename $sourceDir)
+
+	local destPath=$destDir/$name
+
+	## Is the $sourceDir already a link?
+	if [ -L $sourceDir ]; then
+		# Is $sourceDir already pointing to $destPath?
+		if [ $sourceDir -ef $destPath ]; then
+			echo "$sourceDir already linked to $destPath"
+			return 0
+		else
+		# Else, they're point to different places. 
+			echo -----------------------------------------
+			echo "Moving files from $sourceDir to $destPath"
+			echo -----------------------------------------
+			for f in $( ls $sourceDir ); do
+				mv -vu $sourceDir/$f $destPath
+			done
+			echo -----------------------------------------
+			echo "Removing $(readlink $sourceDir)"
+			echo -----------------------------------------
+			rmdir -v $(readlink $sourceDir)
+		fi
+	elif [ -e $sourceDir ]; then
+		echo -----------------------------------------
+		echo "Moving ${sourceDir} to ${destPath}"
+		echo -----------------------------------------
+		mv -v $sourceDir $destPath
+	fi
+
+	[ ! -d $destPath ] && mkdir -v $destPath
+
+	echo -----------------------------------------
+	echo "Creating link from ${sourceDir} to ${destPath}"
+	echo -----------------------------------------
+	ln -vsnf $destPath $sourceDir
+}
+
+
 # Creates a symlink from $linkFile to $sourceFile
 # If $linkFile is a directory, that always exists
 # Then those existing contents will be copied
