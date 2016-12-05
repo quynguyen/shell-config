@@ -5,7 +5,15 @@ alias lt="ls -ltr"
 alias cb="cdb -b"
 alias grep="grep --colour=auto"
 
-alias tmux="tmux -2"
+# December 2016 - Note to Quy
+# Important.  Makes sure solarized colors look right when running vim, instead of tmux, instead of Guake.  
+# Most Stackoverlfow articles say to run 
+#	"tmux -2", 
+# Howevver, as explaine by: 
+#	http://unix.stackexchange.com/posts/119988/revisions
+# tmux -2 doesn't properly give the Terminal full 256 colours.  It just emulates it.  Vim doesn't look nice with this emulation.
+alias tmux="TERM=xterm-256color /usr/bin/tmux"
+
 alias xml="xmlstarlet"
 
 #git
