@@ -4,7 +4,7 @@ export REPO=svn+ssh://qnguyen@clxp01wbd-svn/var/www/svn
 
 [ -z "$PROJECTS" ] && export PROJECTS="$HOME/projects";
 
-export MDI_HOME=~$PROJECTS/mdi
+export MDI_HOME=$PROJECTS/mdi
 
 ##########################################
 # Ear 1
