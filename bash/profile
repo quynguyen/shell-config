@@ -11,5 +11,6 @@ GIT_PROMPT_THEME=Solarized
 source ./montymagic-bash-git-prompt/gitprompt.sh
 
 source npm-completion
+source ng-completion
 
 popd  > /dev/null # go back to working directory ( quietly )
