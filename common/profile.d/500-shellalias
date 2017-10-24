@@ -12,7 +12,7 @@ alias grep="grep --colour=auto"
 # Howevver, as explaine by: 
 #	http://unix.stackexchange.com/posts/119988/revisions
 # tmux -2 doesn't properly give the Terminal full 256 colours.  It just emulates it.  Vim doesn't look nice with this emulation.
-alias tmux="TERM=xterm-256color /usr/bin/tmux"
+alias tmux="TERM=xterm-256color $( which tmux )"
 
 alias xml="xmlstarlet"
 
@@ -20,10 +20,12 @@ alias xml="xmlstarlet"
 alias gs="git status"
 
 #Set Linux equivalents for OS's pbcopy and pbpaste, which are commandline tools for pushing and popping stuff into system clipboard.
-if [ `which xsel 2> /dev/null` ]; then
-	alias pbcopy='xsel --clipboard --input'
-	alias pbpaste='xsel --clipboard --output'
-elif [ `which xclip 2> /dev/null` ]; then
-	alias pbcopy='xclip -selection clipboard'
-	alias pbpaste='xclip -selection clipboard -o'
+if [[ `uname` -ne "Darwin" ]]; then
+	if [[ `which xsel 2> /dev/null` ]]; then
+		alias pbcopy='xsel --clipboard --input'
+		alias pbpaste='xsel --clipboard --output'
+	elif [[ `which xclip 2> /dev/null` ]]; then
+		alias pbcopy='xclip -selection clipboard'
+		alias pbpaste='xclip -selection clipboard -o'
+	fi
 fi
