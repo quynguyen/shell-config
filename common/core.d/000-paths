@@ -15,6 +15,7 @@ export OPT="$ENV/opt"
 export STORELINK="$ENV/.store"
 
 export PROJECTS="$HOME/projects"
-export NPM_MODULES=~/.npm-packages
+export NPM_PACKAGES="${HOME}/.npm-packages"
 
-export PATH=$BIN:$NPM_MODULES/bin:$PATH
+export PATH=$BIN:$NPM_PACKAGES/bin:$PATH
+
