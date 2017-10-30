@@ -4,6 +4,7 @@ alias ll="ls -l"
 alias lt="ls -ltr"
 alias cb="cdb -b"
 alias grep="grep --colour=auto"
+[[ -e `which tmuxinator` ]] && alias mux="$( which tmuxinator)"
 
 # December 2016 - Note to Quy
 # Important.  Makes sure solarized colors look right when running vim, instead of tmux, instead of Guake.  
