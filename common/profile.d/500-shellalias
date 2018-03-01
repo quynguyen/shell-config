@@ -19,6 +19,7 @@ alias xml="xmlstarlet"
 
 #git
 alias gs="git status"
+alias gp='git add -A && git commit -m "Force Commit" && git push'
 
 #Set Linux equivalents for OS's pbcopy and pbpaste, which are commandline tools for pushing and popping stuff into system clipboard.
 if [[ `uname` -ne "Darwin" ]]; then
