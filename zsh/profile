@@ -9,5 +9,6 @@ pushd $( dirname ${BASH_SOURCE:-$0} ) > /dev/null # go there the directory of th
 source ../common/profile
 source zshenv
 source zshrc
+source zshvim
 
 popd  > /dev/null # go back to working directory ( quietly )
