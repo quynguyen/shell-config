@@ -1,5 +1,6 @@
 #!/bin/sh
 
+[[ -e `which gls` ]] && alias ls="gls --color=auto"
 alias ll="ls -l"
 alias lt="ls -ltr"
 alias cb="cdb -b"
