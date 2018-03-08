@@ -1,3 +1,7 @@
 export SSO_JWT_EXTERNAL_EXPIRATION="36000"
 export SSO_JWT_EXTERNAL_RENEW="144000"
 export SSO_JWT_EXTERNAL_NOT_VALID_AFTER="57600"
+
+export BB_HOME="${HOME}/projects/backbase/bb6"
+export CXP_HOME="${BB_HOME}/cx6"
+export DBS_HOME="${BB_HOME}/dbs"

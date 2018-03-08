@@ -1,6 +1,49 @@
 #!/bin/sh
 
+#!/bin/bash
 
+#intexit() {
+#    # Kill all subprocesses (all processes in the current process group)
+#    kill -HUP -$$
+#}
+#
+#projects=(
+#	'webapps/contentservices'
+#	'webapps/portalserver'
+#	'webapps/orchestrator'
+#	'webapps/solr'
+#	'webapps/forms-runtime'
+#)
+#
+#
+#for p in "${projects[@]}"
+#do
+#	mvn -f $p/pom.xml jetty:run &
+#done
+#
+#trap intexit INT
+#
+#for job in `jobs -p`
+#do
+#	echo $job
+#   	wait $job
+#done
+#
+#function tmux-bb()
+#{
+#	local zsh_lines=(
+#		"plugins=(git)"
+#		"export ENV=$ENV"
+#		"source $ENV/.submodules/shell-config/zsh/profile"
+#	)
+#	local i
+#	for l in "${zsh_lines[@]}"; do
+#		grep -nq "$l" ~/.zshrc || echo "$l" >> ~/.zshrc
+#		((i++))
+#	done
+#	
+#}
+#
 function tmux-kill()
 {
     tmux kill-session -t $1
