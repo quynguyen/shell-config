@@ -1,49 +1,42 @@
 #!/bin/sh
 
-#!/bin/bash
+function tmux-bb()
+{
+	local session="bb"
+	doesTmuxSessionExist "${session}" && tmux-attach ${session} && return
 
-#intexit() {
-#    # Kill all subprocesses (all processes in the current process group)
-#    kill -HUP -$$
-#}
-#
-#projects=(
-#	'webapps/contentservices'
-#	'webapps/portalserver'
-#	'webapps/orchestrator'
-#	'webapps/solr'
-#	'webapps/forms-runtime'
-#)
-#
-#
-#for p in "${projects[@]}"
-#do
-#	mvn -f $p/pom.xml jetty:run &
-#done
-#
-#trap intexit INT
-#
-#for job in `jobs -p`
-#do
-#	echo $job
-#   	wait $job
-#done
-#
-#function tmux-bb()
-#{
-#	local zsh_lines=(
-#		"plugins=(git)"
-#		"export ENV=$ENV"
-#		"source $ENV/.submodules/shell-config/zsh/profile"
-#	)
-#	local i
-#	for l in "${zsh_lines[@]}"; do
-#		grep -nq "$l" ~/.zshrc || echo "$l" >> ~/.zshrc
-#		((i++))
-#	done
-#	
-#}
-#
+	tmux start-server
+
+	# Create a split window: Docker on the left; DBS Infra on te right
+	tmux new-session -d -s ${session} -n infra
+	tmux split-window -h -t ${session}:0 # -h actually means split vertically
+
+	# Start Docker
+	tmux send-keys -t ${session}:0.left "cd ${DBS_HOME}; docker-compose up" C-m
+	# Start The DBS Infra
+	tmux send-keys -t ${session}:0.right "cd ${DBS_HOME}/infra; mvn blade:runner" C-m
+
+	# Delay, then send a signal that Infra is done loading
+	(sleep 120; tmux wait-for -S Infra-Loaded)&
+
+	# Create a Window for each DBS Capability listed in ~/.bb/dbs-all (minus ~/.bb/dbs-excluded)
+	local i=1
+	for c in $(dbs); do
+		# Window for the DBS Capability
+		tmux new-window -t ${session}:${i} -n "${c}"
+		# Wait for the "Infra-Loaded" signal, and then run Maven
+		tmux send-keys -t ${session}:${i} "cd ${DBS_HOME}/${c}; tmux wait-for Infra-Loaded; mvn blade:runner" C-m
+		tmux select-pane -L -t ${session}:${i}
+		((i++))
+	done
+
+	if [ -n "$TMUX" ]; then
+		tmux switch-client -t $session
+	else
+		tmux-attach $session
+	fi
+}
+
 function tmux-kill()
 {
     tmux kill-session -t $1
