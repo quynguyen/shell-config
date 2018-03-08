@@ -230,6 +230,6 @@ function doesTmuxSessionExist
     local session=$1
     tmux list-sessions | grep -q $session
     local exists=$?
-    [ $exists == 0 ] && echo "Tmux session $session already exists"
+    [ $exists -eq 0 ] && echo "Tmux session $session already exists"
     return $exists
 }
