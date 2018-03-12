@@ -8,7 +8,7 @@ function tmux-bb()
 	tmux start-server
 
 	# Create a split window: Docker on the left; DBS Infra on te right
-	tmux new-session -d -s ${session} -n infra
+	tmux new-session -d -s ${session} -n bb-platform
 	tmux split-window -h -t ${session}:0 # -h actually means split vertically
 
 	# Start Docker
