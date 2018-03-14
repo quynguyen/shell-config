@@ -69,7 +69,7 @@ function moveAndLink()
 			echo "Moving files from $sourceDir to $destPath"
 			echo -----------------------------------------
 			for f in $( ls $sourceDir ); do
-				mv -vu $sourceDir/$f $destPath
+				mv -v $sourceDir/$f $destPath
 			done
 			echo -----------------------------------------
 			echo "Removing $(readlink $sourceDir)"
