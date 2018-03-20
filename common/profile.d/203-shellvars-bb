@@ -4,6 +4,11 @@ export SSO_JWT_EXTERNAL_EXPIRATION="36000"
 export SSO_JWT_EXTERNAL_RENEW="144000"
 export SSO_JWT_EXTERNAL_NOT_VALID_AFTER="57600"
 
+export SIG_SECRET_KEY="JWTSecretKeyDontUseInProduction!"
+export EXTERNAL_SIG_SECRET_KEY="JWTSecretKeyDontUseInProduction!"
+export EXTERNAL_ENC_SECRET_KEY="JWTEncKeyDontUseInProduction666!"
+export USERCTX_KEY="JWTSecretKeyDontUseInProduction!"
+
 export BB_HOME="${HOME}/projects/backbase/current"
 export BB_PLATFORM="${BB_HOME}/platform"
 export CX_HOME="${BB_HOME}/cx6"
