@@ -1,41 +1,62 @@
 #!/bin/sh
 
-function tmux-bb()
-{
-	local session="bb"
-	doesTmuxSessionExist "${session}" && tmux-attach ${session} && return
+export CMD_DOCKER_UP="docker-compose up"
+export CMD_BLADE_RUNNER="mvn blade:run"
+export TMUX_WAIT_PLATFORM="Platform-Loaded"
+export TMUX_NO_ATTACH="TMUX_NO_ATTACH"
+export TMUX_ATTACH="TMUX_ATTACH"
 
-	tmux start-server
+function tmux-bbp()
+{
+	local session=${1:-"bb-platform"}
+	local sessionName=${2:-"BB Platform"}
+	local attach=${3:-$TMUX_ATTACH}
+	tmuxAttachOrCreateSession ${session}
 
 	# Create a split window: Docker on the left; DBS Infra on te right
-	tmux new-session -d -s ${session} -n bb-platform
+	tmux new-session -d -s ${session} -n b $sessionName
 	tmux split-window -h -t ${session}:0 # -h actually means split vertically
 
 	# Start Docker
-	tmux send-keys -t ${session}:0.left "cd ${DBS_HOME}; docker-compose up" C-m
+	tmux send-keys -t ${session}:0.left "cd ${BB_PLATFORM}; ${CMD_DOCKER_UP}" C-m
 	# Start The DBS Infra
-	tmux send-keys -t ${session}:0.right "cd ${DBS_HOME}/infra; mvn blade:runner" C-m
+	tmux send-keys -t ${session}:0.right "cd ${BB_PLATFORM}; ${CMD_BLADE_RUNNER}" C-m
+
+	[[ ${attach} == ${TMUX_ATTACH} ]] && tmux-attach ${session}
+}
+
+function tmux-bbdbs()
+{
+	local session=${1:-"bb-dbs"}
+	local sessionName=${2:-"BB DBS"}
+	local attach=${3:-$TMUX_ATTACH}
+	tmuxAttachOrCreateSession ${session}
 
 	# Delay, then send a signal that Infra is done loading
-	(sleep 120; tmux wait-for -S Infra-Loaded)&
+	(sleep 120; tmux wait-for -S ${TMUX_WAIT_PLATFORM})&
 
 	# Create a Window for each DBS Capability listed in ~/.bb/dbs-all (minus ~/.bb/dbs-excluded)
 	local i=1
 	for c in $(dbs); do
 		# Window for the DBS Capability
 		tmux new-window -t ${session}:${i} -n "${c}"
-		# Wait for the "Infra-Loaded" signal, and then run Maven
-		tmux send-keys -t ${session}:${i} "cd ${DBS_HOME}/${c}; tmux wait-for Infra-Loaded; mvn blade:runner" C-m
+		# Wait for the "${TMUX_WAIT_PLATFORM}" signal, and then run Maven
+		tmux send-keys -t ${session}:${i} "cd ${DBS_HOME}/${c}; tmux wait-for ${TMUX_WAIT_PLATFORM}; ${CMD_BLADE_RUNNER}" C-m
 		tmux select-pane -L -t ${session}:${i}
 		((i++))
 	done
 
-	if [ -n "$TMUX" ]; then
-		tmux switch-client -t $session
-	else
-		tmux-attach $session
-	fi
+	[[ ${attach} == ${TMUX_ATTACH} ]] && tmux-attach ${session}
 }
+
+function tmux-bbpAndDbs()
+{
+	local session=${1:-"bb-platform-and-dbs"}
+	local sessionName=${2:-"BB Platform And DBS"}
+	tmux-bbp $session $sessionName $TMUX_NO_ATTACH
+	tmux-bbdbs $session $sessionName
+}
+
 
 function tmux-kill()
 {
@@ -44,7 +65,13 @@ function tmux-kill()
 
 function tmux-attach()
 {
-    tmux attach -t $1
+	local session=$1
+
+	if [ -n "$TMUX" ]; then
+		tmux switch-client -t $session
+	else
+		tmux attach -t $1
+	fi
 }
 
 function tmux-scala
@@ -225,4 +252,12 @@ function doesTmuxSessionExist
     local exists=$?
     [ $exists -eq 0 ] && echo "Tmux session $session already exists"
     return $exists
+}
+
+function tmuxAttachOrCreateSession()
+{
+	local session=$1
+	doesTmuxSessionExist "${session}" && tmux-attach ${session} && return
+
+	tmux start-server
 }
