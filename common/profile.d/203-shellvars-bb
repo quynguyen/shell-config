@@ -9,6 +9,8 @@ export EXTERNAL_SIG_SECRET_KEY="JWTSecretKeyDontUseInProduction!"
 export EXTERNAL_ENC_SECRET_KEY="JWTEncKeyDontUseInProduction666!"
 export USERCTX_KEY="JWTSecretKeyDontUseInProduction!"
 
+export MESSAGING_PASSWORD=password
+
 export BB_HOME="${HOME}/projects/backbase/current"
 export BB_PLATFORM="${BB_HOME}/platform"
 export CX_HOME="${BB_HOME}/cx6"

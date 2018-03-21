@@ -1,47 +1,89 @@
 #!/bin/sh
 
-export CMD_DOCKER_UP="docker-compose up"
-export CMD_BLADE_RUNNER="mvn blade:run"
+export TMUX_SLEEP_DELAY="120"
 export TMUX_WAIT_PLATFORM="Platform-Loaded"
 export TMUX_NO_ATTACH="TMUX_NO_ATTACH"
 export TMUX_ATTACH="TMUX_ATTACH"
+export CMD_DOCKER_UP="docker-compose up"
+export CMD_BLADE_RUNNER="mvn blade:run"
+export CMD_TMUX_NO_WAIT="echo Starting now."
+export CMD_TMUX_WAIT="tmux-wait-for-signal"
+export CMD_TMUX_RAISE_DELAYED_SIGNAL="tmux-raise-delayed-signal"
 
-function tmux-bbp()
+function tmux-wait-for-signal()
 {
-	local session=${1:-"bb-platform"}
-	local sessionName=${2:-"BB Platform"}
-	local attach=${3:-$TMUX_ATTACH}
-	tmuxAttachOrCreateSession ${session}
+	local signal=${1:-${TMUX_WAIT_PLATFORM}}
+	echo 'Starting on a delay.  Waiting for'; tmux wait-for ${signal}
+}
+
+function tmux-raise-delayed-signal()
+{
+	local delay=${1:-${TMUX_SLEEP_DELAY}}
+	local signal=${2:-${TMUX_WAIT_PLATFORM}}
+	(sleep ${delay}; tmux wait-for -S ${signal})
+}
+
+function tmux-bb()
+{
+	local attach=${1:-$TMUX_ATTACH}
+	local session=${2:-"bb"}
+	local startingPaneIndex=${3:-0}
+	local startingPaneName=${4:-"main"}
+	tmuxAttachOrCreateSession ${session} ${startingPaneName}
 
 	# Create a split window: Docker on the left; DBS Infra on te right
-	tmux new-session -d -s ${session} -n b $sessionName
-	tmux split-window -h -t ${session}:0 # -h actually means split vertically
+	tmux split-window -h -t ${session}:${startingPaneIndex} # -h actually means split vertically
 
 	# Start Docker
-	tmux send-keys -t ${session}:0.left "cd ${BB_PLATFORM}; ${CMD_DOCKER_UP}" C-m
+	tmux send-keys -t ${session}:${startingPaneIndex}.left "cd ${BB_PLATFORM}; ${CMD_DOCKER_UP}" C-m
 	# Start The DBS Infra
-	tmux send-keys -t ${session}:0.right "cd ${BB_PLATFORM}; ${CMD_BLADE_RUNNER}" C-m
+	tmux send-keys -t ${session}:${startingPaneIndex}.right "cd ${BB_PLATFORM}; ${CMD_BLADE_RUNNER}" C-m
 
 	[[ ${attach} == ${TMUX_ATTACH} ]] && tmux-attach ${session}
 }
 
-function tmux-bbdbs()
+function tmux-cx()
 {
-	local session=${1:-"bb-dbs"}
-	local sessionName=${2:-"BB DBS"}
-	local attach=${3:-$TMUX_ATTACH}
-	tmuxAttachOrCreateSession ${session}
+	local waitCmd=${1:-${CMD_TMUX_NO_WAIT}}
+	local attach=${2:-$TMUX_ATTACH}
+	local session=${3:-"cx"}
+	local startingPaneIndex=${4:-0}
+	local startingPaneName=${5:-"main"}
+	tmuxAttachOrCreateSession ${session} ${startingPaneName}
 
 	# Delay, then send a signal that Infra is done loading
-	(sleep 120; tmux wait-for -S ${TMUX_WAIT_PLATFORM})&
+	[[ ${waitCmd} == ${CMD_TMUX_NO_WAIT} ]] || ${CMD_TMUX_RAISE_DELAYED_SIGNAL}
 
+	# Create a split window: Docker on the left; DBS Infra on te right
+	tmux split-window -h -t ${session}:${startingPaneIndex} # -h actually means split vertically
+
+	# Start Docker
+	tmux send-keys -t ${session}:${startingPaneIndex}.left "cd ${CX_HOME}" C-m
+	# Start The DBS Infra
+	tmux send-keys -t ${session}:${startingPaneIndex}.right "cd ${CX_HOME}; ${waitCmd}; ${CMD_BLADE_RUNNER}" C-m
+
+	[[ ${attach} == ${TMUX_ATTACH} ]] && tmux-attach ${session}
+}
+
+function tmux-dbs()
+{
+	local waitCmd=${1:-${CMD_TMUX_NO_WAIT}}
+	local attach=${2:-$TMUX_ATTACH}
+	local session=${3:-"dbs"}
+	local startingPaneIndex=${4:-1}
+	local startingPaneName=${5:-"blank"}
+	tmuxAttachOrCreateSession ${session} ${startingPaneName}
+
+	# Delay, then send a signal that Infra is done loading
+	[[ ${waitCmd} == ${CMD_TMUX_NO_WAIT} ]] || ${CMD_TMUX_RAISE_DELAYED_SIGNAL}
+
+	local i=${startingPaneIndex}
 	# Create a Window for each DBS Capability listed in ~/.bb/dbs-all (minus ~/.bb/dbs-excluded)
-	local i=1
 	for c in $(dbs); do
 		# Window for the DBS Capability
 		tmux new-window -t ${session}:${i} -n "${c}"
 		# Wait for the "${TMUX_WAIT_PLATFORM}" signal, and then run Maven
-		tmux send-keys -t ${session}:${i} "cd ${DBS_HOME}/${c}; tmux wait-for ${TMUX_WAIT_PLATFORM}; ${CMD_BLADE_RUNNER}" C-m
+		tmux send-keys -t ${session}:${i} "cd ${DBS_HOME}/${c}; ${waitCmd}; ${CMD_BLADE_RUNNER}" C-m
 		tmux select-pane -L -t ${session}:${i}
 		((i++))
 	done
@@ -49,14 +91,31 @@ function tmux-bbdbs()
 	[[ ${attach} == ${TMUX_ATTACH} ]] && tmux-attach ${session}
 }
 
-function tmux-bbpAndDbs()
+function tmux-bbdbs()
 {
-	local session=${1:-"bb-platform-and-dbs"}
-	local sessionName=${2:-"BB Platform And DBS"}
-	tmux-bbp $session $sessionName $TMUX_NO_ATTACH
-	tmux-bbdbs $session $sessionName
+	tmux-bb $TMUX_NO_ATTACH
+	tmux-dbs $CMD_TMUX_WAIT
 }
 
+function tmux-bbcx()
+{
+	tmux-bb $TMUX_NO_ATTACH
+	tmux-cx $CMD_TMUX_WAIT
+}
+
+function tmux-bball()
+{
+	tmux-bb $TMUX_NO_ATTACH
+	tmux-dbs "$CMD_TMUX_WAIT" "$TMUX_NO_ATTACH"
+	tmux-cx "$CMD_TMUX_WAIT"
+}
+
+function tmux-bbx()
+{
+	tmux-bb "$TMUX_NO_ATTACH" "bbx"
+	tmux-cx "$CMD_TMUX_WAIT" "$TMUX_NO_ATTACH" "bbx" 1
+	tmux-dbs "$CMD_TMUX_WAIT" "$TMUX_NO_ATTACH" "bbx" 2 
+}
 
 function tmux-kill()
 {
@@ -257,7 +316,9 @@ function doesTmuxSessionExist
 function tmuxAttachOrCreateSession()
 {
 	local session=$1
+	local sessionName=${2:-blank}
 	doesTmuxSessionExist "${session}" && tmux-attach ${session} && return
 
 	tmux start-server
+	tmux new-session -d -s ${session} -n $sessionName
 }
