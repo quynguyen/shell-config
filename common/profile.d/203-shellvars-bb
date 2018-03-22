@@ -13,5 +13,7 @@ export MESSAGING_PASSWORD=password
 
 export BB_HOME="${HOME}/projects/backbase/current"
 export BB_PLATFORM="${BB_HOME}/platform"
+export BB_STATICS="${BB_HOME}/statics"
+export BB_EXTENSIONS="${BB_HOME}/../extensions"
 export CX_HOME="${BB_HOME}/cx6"
 export DBS_HOME="${BB_HOME}/dbs"

@@ -1,5 +1,10 @@
 #!/bin/sh
 
+function quid() {
+	local size=${1:-4}
+	cat /dev/urandom | tr -dc 'a-z0-9' | fold -w $size | head -n 1
+}
+
 function deepReadLink() {
 	local target=$1
 
