@@ -53,7 +53,8 @@ function tmux-wait-for-signal()
 function tmux-raise-delayed-signal()
 {
 	local signal=${1:-${TMUX_PARAM_WAIT}}
-	local delay=${2:-${TMUX_SIGNAL_EPOCH_DELAY}}
+	local delay=${2:-${TMUX_PARAM_SIGNAL_DELAY}}
+	echo "Waiting for ${delay} seconds, then signaling ${signal}"
 	[[ $signal == ${TMUX_SIGNAL_NONE} ]] || (sleep ${delay}; tmux wait-for -S "${signal}")&
 }
 
@@ -114,27 +115,45 @@ function tmux-launch-pane()
 function tmux-bb-docker()
 {
 	local session=${1:-"docker"}
-	TMUX_PARAM_PATH=${BB_PLATFORM} TMUX_PARAM_CMD=${CMD_DOCKER_UP} tmux-launch-pane ${session}
+	TMUX_PARAM_FIRST_PANE_NAME="docker" TMUX_PARAM_PATH=${BB_PLATFORM} TMUX_PARAM_CMD=${CMD_DOCKER_UP} tmux-launch-pane ${session}
 }
 
 function tmux-bb-plat()
 {
 	local session=${1:-"platform"}
-	TMUX_PARAM_PATH=${BB_PLATFORM} TMUX_PARAM_CMD=${CMD_BLADE_RUNNER} tmux-launch-pane ${session}
+	TMUX_PARAM_FIRST_PANE_NAME="platform" TMUX_PARAM_PATH=${BB_PLATFORM} TMUX_PARAM_CMD=${CMD_BLADE_RUNNER} tmux-launch-pane ${session}
 }
 
 function tmux-bb()
 {
 	local session=${1:-"bb"}
 	local startingPaneIndex=${2:-${TMUX_PARAM_INDEX}}
-	TMUX_PARAM_FIRST_PANE_NAME="docker"   TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-docker $session
-	TMUX_PARAM_FIRST_PANE_NAME="platform" TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-plat $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-docker $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-plat $session
 }
 
 function tmux-cx()
 {
 	local session=${1:-"cx"}
-	TMUX_PARAM_PATH=${CX_HOME} TMUX_PARAM_CMD=${CMD_BLADE_RUNNER} tmux-launch-pane ${session}
+	TMUX_PARAM_FIRST_PANE_NAME="cx" TMUX_PARAM_PATH=${CX_HOME} TMUX_PARAM_CMD=${CMD_BLADE_RUNNER} tmux-launch-pane ${session}
+}
+
+function tmux-bb-cx()
+{
+	local session=${1:-"bb-cx"}
+	local startingPaneIndex=${2:-${TMUX_PARAM_INDEX}}
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-docker $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) TMUX_PARAM_SIGNAL=${TMUX_WAIT_PLATFORM} TMUX_PARAM_SIGNAL_DELAY=${TMUX_SIGNAL_PLATFORM_DELAY} tmux-bb-plat $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) TMUX_PARAM_WAIT=${TMUX_WAIT_PLATFORM} tmux-cx $session
+}
+
+function tmux-bb-dbs()
+{
+	local session=${1:-"bb-cx"}
+	local startingPaneIndex=${2:-${TMUX_PARAM_INDEX}}
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) tmux-bb-docker $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) TMUX_PARAM_SIGNAL=${TMUX_WAIT_PLATFORM} TMUX_PARAM_SIGNAL_DELAY=${TMUX_SIGNAL_PLATFORM_DELAY} tmux-bb-plat $session
+	TMUX_PARAM_INDEX=$((startingPaneIndex++)) TMUX_PARAM_WAIT=${TMUX_WAIT_PLATFORM} tmux-dbs $session
 }
 
 function tmux-dbs()
@@ -176,27 +195,6 @@ function tmux-cx-clean-database()
 function tmux-dbs-clean-database()
 {
 	tmux-dbs "$TMUX_SIGNAL_NONE" "$TMUX_PARAM_ATTACH" "dbs-db" 1 "blank" $CMD_CLEAN_DATABASE
-}
-
-function tmux-bbdbs()
-{
-	tmux-bb $TMUX_VALUE_ATTACH_NONE
-	tmux-dbs $TMUX_SIGNAL_PLATFORM
-}
-
-
-function tmux-bball()
-{
-	tmux-bb $TMUX_VALUE_ATTACH_NONE
-	tmux-dbs "$"$TMUX_SIGNAL_PLATFORM"" "$TMUX_VALUE_ATTACH_NONE"
-	tmux-cx "$TMUX_SIGNAL_PLATFORM"
-}
-
-function tmux-bbx()
-{
-	tmux-bb "$TMUX_VALUE_ATTACH_NONE" "bbx"
-	tmux-cx "$TMUX_SIGNAL_PLATFORM" "$TMUX_VALUE_ATTACH_NONE" "bbx" 1
-	tmux-dbs "$TMUX_SIGNAL_PLATFORM" "$TMUX_PARAM_ATTACH" "bbx" 2
 }
 
 function tmux-kill()
