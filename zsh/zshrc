@@ -15,7 +15,14 @@ if [[ -e "$HOME/.jenv" ]]; then
 	export MAVEN_OPTS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=40"
 fi
 
-source /usr/local/share/antigen/antigen.zsh
+case `uname` in
+  Darwin)
+    source /usr/local/share/antigen/antigen.zsh
+  ;;
+  Linux)
+    source /usr/share/zsh-antigen/antigen.zsh
+  ;;
+esac
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
