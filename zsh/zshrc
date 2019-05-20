@@ -18,6 +18,7 @@ fi
 case `uname` in
   Darwin)
     source /usr/local/share/antigen/antigen.zsh
+    source ~/.fonts/*.sh
   ;;
   Linux)
     source /usr/share/zsh-antigen/antigen.zsh
@@ -28,10 +29,12 @@ esac
 antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle vi-mode
 antigen bundle git
 antigen bundle pip
 antigen bundle command-not-found
 antigen bundle arialdomartini/oh-my-git
+antigen bundle softmoth/zsh-vim-mode
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -40,12 +43,17 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
+POWERLEVEL9K_MODE='awesome-fontconfig'
 antigen theme bhilburn/powerlevel9k powerlevel9k
 
-#antigen theme robbyrussell
+antigen theme robbyrussell
 
 # Tell Antigen that you're done.
 antigen apply
+
+# Added by Quy 
+stty intr \^X 
+bindkey -M viins '^C' vi-cmd-mode
 
 ##############################################################################
 # History Configuration
