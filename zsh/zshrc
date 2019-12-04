@@ -19,6 +19,7 @@ case `uname` in
   Darwin)
     source /usr/local/share/antigen/antigen.zsh
     source ~/.fonts/*.sh
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
   ;;
   Linux)
     source /usr/share/zsh-antigen/antigen.zsh
