@@ -1,0 +1,12 @@
+#!/bin/sh
+
+setOrInstall JENV_HOME \
+	"$HOME/.jenv" \
+	"git clone https://github.com/gcuisinier/jenv.git $JENV_HOME" 
+
+export PATH="$JENV_HOME/bin:$PATH"
+eval "$(jenv init -)"
+export JAVA_HOME=$( jenv javahome )
+export JRE_HOME=$JAVA_HOME/jre
+export MAVEN_OPTS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=40"
+

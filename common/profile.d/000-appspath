@@ -1,5 +1,0 @@
-#!/bin/sh
-
-for app in $(ls $APPS); do
-	export PATH=$APPS/$app/bin:$PATH
-done

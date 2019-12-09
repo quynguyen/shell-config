@@ -1,0 +1,10 @@
+#!/bin/sh
+
+case `uname` in
+  Darwin)
+	[ -e ~/.fonts/] && source ~/.fonts/*.sh
+  ;;
+  Linux)
+	echo ""
+  ;;
+esac

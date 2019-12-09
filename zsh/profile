@@ -7,8 +7,8 @@
 pushd $( dirname ${BASH_SOURCE:-$0} ) > /dev/null # go there the directory of this currently 'sourced' script ( quietly )
 
 source ../common/profile
+source zsh-antigen
 source zshenv
 source zshrc
-#source zshvim
 
 popd  > /dev/null # go back to working directory ( quietly )
