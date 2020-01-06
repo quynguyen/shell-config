@@ -118,10 +118,18 @@ function moveAndLink()
 			rmdir -v $(readlink $sourceDir)
 		fi
 	elif [ -e $sourceDir ]; then
-		echo -----------------------------------------
-		echo "Moving ${sourceDir} to ${destPath}"
-		echo -----------------------------------------
-		mv -v $sourceDir $destPath
+		if [ -d $destPath ]; then
+			echo -----------------------------------------
+			echo "Moving contents ${sourceDir} to ${destPath}"
+			echo -----------------------------------------
+			mv -v $sourceDir/* $destPath
+			rmdir -v $sourceDir
+		else
+			echo -----------------------------------------
+			echo "Moving ${sourceDir} to ${destPath}"
+			echo -----------------------------------------
+			mv -v $sourceDir $destPath
+		fi
 	fi
 
 	[ ! -d $destPath ] && mkdir -v $destPath
@@ -134,7 +142,7 @@ function moveAndLink()
 
 
 # Creates a symlink from $linkFile to $sourceFile
-# If $linkFile is a directory, that always exists
+# If $linkFile is a directory, that already exists
 # Then those existing contents will be copied
 #
 function relink(){
