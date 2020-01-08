@@ -1,4 +1,5 @@
 #!/bin/sh
+
 export STORE="$HOME/.store"
 export APPSTORE="$STORE/apps"
 export CACHESTORE="$STORE/cache"

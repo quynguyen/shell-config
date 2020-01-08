@@ -1,5 +1,41 @@
 #!/bin/sh
 
+function verboseExec() {
+	local cmd=$1
+	echo $cmd
+	eval $cmd
+}
+
+function requireCmd() {
+	local target=$1
+	local description=${2:-$1}
+	if [[ ! $(type -a $target) ]]; then
+		echo "You need to install $description"
+		exit 1
+	fi
+}
+
+function requireSource() {
+	local target=$1
+	local description=${2:-$1}
+	[ -e $target ] || echo "You need to install $description" && return 1
+}
+
+function trySource() {
+	local target=$1
+	[ -e $target ] && source $target
+}
+
+function setOrInstall() {
+	local name=$1
+	local path=$2
+	local installCmd=$3
+	if [[ ! -e "$path" ]]; then
+		verboseExec $installCmd
+	fi
+	verboseExec "export ${name}=${path}"
+}
+
 function quid() {
 	local size=${1:-4}
 	cat /dev/urandom | tr -dc 'a-z0-9' | fold -w $size | head -n 1
@@ -82,10 +118,18 @@ function moveAndLink()
 			rmdir -v $(readlink $sourceDir)
 		fi
 	elif [ -e $sourceDir ]; then
-		echo -----------------------------------------
-		echo "Moving ${sourceDir} to ${destPath}"
-		echo -----------------------------------------
-		mv -v $sourceDir $destPath
+		if [ -d $destPath ]; then
+			echo -----------------------------------------
+			echo "Moving contents ${sourceDir} to ${destPath}"
+			echo -----------------------------------------
+			mv -v $sourceDir/* $destPath
+			rmdir -v $sourceDir
+		else
+			echo -----------------------------------------
+			echo "Moving ${sourceDir} to ${destPath}"
+			echo -----------------------------------------
+			mv -v $sourceDir $destPath
+		fi
 	fi
 
 	[ ! -d $destPath ] && mkdir -v $destPath
@@ -98,7 +142,7 @@ function moveAndLink()
 
 
 # Creates a symlink from $linkFile to $sourceFile
-# If $linkFile is a directory, that always exists
+# If $linkFile is a directory, that already exists
 # Then those existing contents will be copied
 #
 function relink(){

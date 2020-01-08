@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+export ANTIGEN_HOME=$HOME/.antigen
+export ANTIGEN_CMD=$ANTIGEN_HOME/antigen.zsh
+
+[ -e $ANTIGEN_CMD ] || (mkdir $ANTIGEN_HOME && curl -L git.io/antigen > $ANTIGEN_CMD \
+	&& echo "Antigen now installed $ANTIGEN_CMD")
+
+source $ANTIGEN_CMD

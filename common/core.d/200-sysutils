@@ -1,0 +1,30 @@
+#!/bin/sh
+
+case `uname` in
+  Darwin)
+	if [[ ! $(type -a brew) ]]; then
+		echo "You need to install Homebrew"
+		exit 1
+	fi
+
+	requireCmd brew "Homebrew"
+	
+	if [[ ! $(type -a envsubst) ]]; then
+		brew install gettext
+		exit 1
+	fi
+
+	setOrInstall RUBY_HOME \
+		"/usr/local/opt/ruby/" \
+		"brew install ruby"
+	export PATH="${RUBY_HOME}/bin:$PATH"
+	
+	setOrInstall GNU_UTILS_HOME \
+		"/usr/local/opt/findutils/libexec/gnubin" \
+		"brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep"
+	export PATH="${GNU_UTILS_HOME}:$PATH"
+  ;;
+  Linux)
+	echo ""
+  ;;
+esac

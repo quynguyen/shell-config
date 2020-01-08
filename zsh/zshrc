@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+<<<<<<< HEAD
 [[ -e "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [[ -e "/usr/local/opt/findutils/libexec/gnubin" ]] && export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
 
@@ -26,6 +27,8 @@ case `uname` in
   ;;
 esac
 
+=======
+>>>>>>> d7430fba52824b7e130b64f4c59b155ec0683fce
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
@@ -44,10 +47,19 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs vi_mode)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-POWERLEVEL9K_MODE='awesome-fontconfig'
+
+case `uname` in
+  Darwin)
+	  POWERLEVEL9K_MODE='awesome-fontconfig'
+  ;;
+  Linux)
+	  echo ""
+  ;;
+esac
+
 antigen theme bhilburn/powerlevel9k powerlevel9k
 
-antigen theme robbyrussell
+#antigen theme robbyrussell
 
 # Tell Antigen that you're done.
 antigen apply
