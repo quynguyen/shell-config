@@ -86,58 +86,64 @@ function relative() {
 
 function moveAndLink()
 {
-	local sourceDir=$1
+	local symlink=$1
 	local destDir=$2
 	local name=$3
+
 
 	[ ! -d $destDir ] && \
 		echo "$destDir doest not exist" && return 1
 
 	[ -z $name ] && \
-		name=$(basename $sourceDir)
+		name=$(basename $symlink)
 
 	local destPath=$destDir/$name
 
-	## Is the $sourceDir already a link?
-	if [ -L $sourceDir ]; then
-		# Is $sourceDir already pointing to $destPath?
-		if [ $sourceDir -ef $destPath ]; then
-			echo "$sourceDir already linked to $destPath"
+	local symlinkDir=$(dirname $symlink)
+
+	[ ! -d $symlinkDir ] && \
+		mkdir --parents $symlinkDir
+
+	## Is the $symlink already a link?
+	if [ -L $symlink ]; then
+		# Is $symlink already pointing to $destPath?
+		if [ $symlink -ef $destPath ]; then
+			echo "$symlink already linked to $destPath"
 			return 0
 		else
 		# Else, they're point to different places. 
 			echo -----------------------------------------
-			echo "Moving files from $sourceDir to $destPath"
+			echo "Moving files from $symlink to $destPath"
 			echo -----------------------------------------
-			for f in $( ls $sourceDir ); do
-				mv -v $sourceDir/$f $destPath
+			for f in $( ls $symlink ); do
+				mv -v $symlink/$f $destPath
 			done
 			echo -----------------------------------------
-			echo "Removing $(readlink $sourceDir)"
+			echo "Removing $(readlink $symlink)"
 			echo -----------------------------------------
-			rmdir -v $(readlink $sourceDir)
+			rmdir -v $(readlink $symlink)
 		fi
-	elif [ -e $sourceDir ]; then
+	elif [ -e $symlink ]; then
 		if [ -d $destPath ]; then
 			echo -----------------------------------------
-			echo "Moving contents ${sourceDir} to ${destPath}"
+			echo "Moving contents ${symlink} to ${destPath}"
 			echo -----------------------------------------
-			mv -v $sourceDir/* $destPath
-			rmdir -v $sourceDir
+			mv -v $symlink/* $destPath
+			rmdir -v $symlink
 		else
 			echo -----------------------------------------
-			echo "Moving ${sourceDir} to ${destPath}"
+			echo "Moving ${symlink} to ${destPath}"
 			echo -----------------------------------------
-			mv -v $sourceDir $destPath
+			mv -v $symlink $destPath
 		fi
 	fi
 
 	[ ! -d $destPath ] && mkdir -v $destPath
 
 	echo -----------------------------------------
-	echo "Creating link from ${sourceDir} to ${destPath}"
+	echo "Creating link from ${symlink} to ${destPath}"
 	echo -----------------------------------------
-	ln -vsnf $destPath $sourceDir
+	ln -vsnf $destPath $symlink
 }
 
 
