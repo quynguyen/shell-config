@@ -1,34 +1,5 @@
 #!/bin/zsh
 
-<<<<<<< HEAD
-[[ -e "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[[ -e "/usr/local/opt/findutils/libexec/gnubin" ]] && export PATH=/usr/local/opt/findutils/libexec/gnubin:$PATH
-
-[[ -e  "/usr/libexec/java_home" ]] \
-	&& export JAVA_HOME=$( /usr/libexec/java_home ) \
-	&& export JRE_HOME=$JAVA_HOME/jre
-
-if [[ -e "$HOME/.jenv" ]]; then
-	export PATH="$HOME/.jenv/bin:$PATH"
-	eval "$(jenv init -)"
-	export JAVA_HOME=$( jenv javahome )
-	export JRE_HOME=$JAVA_HOME/jre
-	export MAVEN_OPTS="-XX:+UseG1GC -XX:MaxHeapFreeRatio=40"
-fi
-
-case `uname` in
-  Darwin)
-    source /usr/local/share/antigen/antigen.zsh
-    source ~/.fonts/*.sh
-  ;;
-  Linux)
-    source /usr/share/zsh-antigen/antigen.zsh
-    bindkey -v
-  ;;
-esac
-
-=======
->>>>>>> d7430fba52824b7e130b64f4c59b155ec0683fce
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
