@@ -8,6 +8,8 @@ export CACHESTORE="$STORE/cache"
 [ -z "$ENV" ] && export ENV="$HOME/.shell"
 
 export BIN="$ENV/bin"
+export LOCAL="$ENV/local"
+export LOCAL_BIN="$LOCAL/bin"
 export APPS="$ENV/apps"
 export CACHES="$ENV/config/caches"
 export DOTFILES="$ENV/config/dotfiles"
@@ -18,5 +20,5 @@ export STORELINK="$ENV/.store"
 export PROJECTS="$HOME/projects"
 export NPM_PACKAGES="${HOME}/.npm-packages"
 
-export PATH=$BIN:$NPM_PACKAGES/bin:$PATH
+export PATH=$LOCAL_BIN:$BIN:$NPM_PACKAGES/bin:$PATH
 
