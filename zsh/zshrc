@@ -3,15 +3,18 @@
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
+# Load bundles from the default repo (oh-my-zsh).
 antigen bundle vi-mode
 antigen bundle git
+antigen bundle gitignore #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
 antigen bundle pip
 antigen bundle command-not-found
+antigen bundle python #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
+antigen bundle jenv #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jenv
+
+# Load bundles from external repos.
 antigen bundle arialdomartini/oh-my-git
 antigen bundle softmoth/zsh-vim-mode
-
-# Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
