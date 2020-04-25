@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export REQUIRED_PACKAGES_INSTALLED="$HOME/.required-packages"
 export STORE="$HOME/.store"
 export APPSTORE="$STORE/apps"
 export CACHESTORE="$STORE/cache"
@@ -16,6 +17,7 @@ export DOTFILES="$ENV/config/dotfiles"
 export OVERLAYS="$ENV/config/overlays"
 export OPT="$ENV/opt"
 export STORELINK="$ENV/.store"
+export REQUIRED_PACKAGES="$ENV/config/required/packages"
 
 export PROJECTS="$HOME/projects"
 export NPM_PACKAGES="${HOME}/.npm-packages"
