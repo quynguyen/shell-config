@@ -8,6 +8,7 @@ antigen bundle vi-mode
 antigen bundle git
 antigen bundle gitignore #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
 antigen bundle pip
+antigen bundle ng
 antigen bundle command-not-found
 antigen bundle python #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
 antigen bundle jenv #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jenv
