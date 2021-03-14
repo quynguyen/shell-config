@@ -20,7 +20,6 @@ export STORELINK="$ENV/.store"
 export REQUIRED_PACKAGES="$ENV/config/required/packages"
 
 export PROJECTS="$HOME/projects"
-export NPM_PACKAGES="${HOME}/.npm-packages"
 
-export PATH=$LOCAL_BIN:$BIN:$NPM_PACKAGES/bin:$PATH
+export PATH=$LOCAL_BIN:$BIN:$PATH
 
