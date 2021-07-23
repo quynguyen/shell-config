@@ -4,7 +4,8 @@ setOrInstall JENV_HOME \
 	"$HOME/.jenv" \
 	"git clone https://github.com/gcuisinier/jenv.git $JENV_HOME" 
 
-export PATH="$JENV_HOME/bin:$PATH"
+export RBENV_HOME="$HOME/.rbenv"
+export PATH="$RBENV_HOME/bin:$JENV_HOME/bin:$PATH"
 eval "$(jenv init -)"
 export JAVA_HOME=$( jenv javahome )
 export JRE_HOME=$JAVA_HOME/jre

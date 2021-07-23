@@ -15,7 +15,8 @@ antigen bundle jenv #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jenv
 
 # Load bundles from external repos.
 antigen bundle arialdomartini/oh-my-git
-antigen bundle softmoth/zsh-vim-mode
+antigen bundle jeffreytse/zsh-vi-mode
+#antigen bundle softmoth/zsh-vim-mode
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
