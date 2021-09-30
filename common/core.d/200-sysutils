@@ -14,15 +14,20 @@ case `uname` in
 		exit 1
 	fi
 
-	setOrInstall RUBY_HOME \
-		"/usr/local/opt/ruby/" \
-		"brew install ruby"
-	export PATH="${RUBY_HOME}/bin:$PATH"
-	
-	setOrInstall GNU_UTILS_HOME \
+	#setOrInstall RUBY_HOME \
+	#	"/usr/local/opt/ruby/" \
+	#	"brew install ruby"
+	#export PATH="${RUBY_HOME}/bin:$PATH"
+
+	setOrInstall GNU_CORE_HOME \
+		"/usr/local/opt/coreutils/libexec/gnubin" \
+		"brew install coreutils"
+	export PATH="${GNU_CORE_HOME}:$PATH"
+
+	setOrInstall GNU_FIND_HOME \
 		"/usr/local/opt/findutils/libexec/gnubin" \
-		"brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep"
-	export PATH="${GNU_UTILS_HOME}:$PATH"
+		"brew install findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep"
+	export PATH="${GNU_FIND_HOME}:$PATH"
   ;;
   Linux)
 	echo ""
