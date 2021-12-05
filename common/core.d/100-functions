@@ -1,9 +1,9 @@
 #!/bin/sh
 
 function verboseExec() {
-	local cmd=$1
-	echo $cmd
-	eval $cmd
+	local cmd="${1}"
+	echo "${cmd}"
+	eval "${cmd}"
 }
 
 function requireCmd() {
@@ -16,10 +16,10 @@ function requireCmd() {
 }
 
 function ensureCmd() {
-	local target=$1
-	local installCmd=$2
+	local target="$1"
+	local installCmd="$2"
 	if [[ ! $(type -a $target) ]]; then
-		verboseExec $installCmd
+		verboseExec "${installCmd}"
 	fi
 }
 
@@ -35,11 +35,11 @@ function trySource() {
 }
 
 function setOrInstall() {
-	local name=$1
-	local path=$2
+	local name="$1"
+	local path="$2"
 	local installCmd=$3
 	if [[ ! -e "$path" ]]; then
-		verboseExec $installCmd
+		verboseExec "${installCmd}"
 	fi
 	verboseExec "export ${name}=${path}"
 }

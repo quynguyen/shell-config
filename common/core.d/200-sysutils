@@ -1,35 +1,41 @@
 #!/bin/sh
 
-case `uname` in
-  Darwin)
-	if [[ ! $(type -a brew) ]]; then
-		echo "You need to install Homebrew"
-		exit 1
-	fi
+# Less - Syntax Highlighting
+# https://ole.michelsen.dk/blog/syntax-highlight-files-macos-terminal-less/
+LESSPIPE="$(which src-hilite-lesspipe.sh)"
+if [ -d "$LESSPIPE" ]; then
+	export LESSOPEN="| ${LESSPIPE} %s"
+	export LESS=' -R -X -F '
+fi
+case $(uname) in
+	Darwin)
+		if [ ! "$(type -a brew)" ]; then
+			echo "You need to install Homebrew"
+			exit 1
+		fi
 
-	ensureCmd brew "/usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	
-	if [[ ! $(type -a envsubst) ]]; then
-		brew install gettext
-		exit 1
-	fi
+		ensureCmd brew "/usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-	#setOrInstall RUBY_HOME \
-	#	"/usr/local/opt/ruby/" \
-	#	"brew install ruby"
-	#export PATH="${RUBY_HOME}/bin:$PATH"
+		if [[ ! $(type -a envsubst) ]]; then
+			brew install gettext
+			exit 1
+		fi
 
-	setOrInstall GNU_CORE_HOME \
-		"/usr/local/opt/coreutils/libexec/gnubin" \
-		"brew install coreutils"
-	export PATH="${GNU_CORE_HOME}:$PATH"
+	# Install all the GNU-Utils
+	for package in coreutils diffutils findutils gawk gnu-indent gnu-sed gnu-tar gnu-which gnutls gnu-getopt grep watch wdiff wget; do
+		package_path="/usr/local/opt/${package}/"
+		bin_path="${package_path}/libexec/gnubin"
+		man_path="${package_path}/libexec/gnuman/"
 
-	setOrInstall GNU_FIND_HOME \
-		"/usr/local/opt/findutils/libexec/gnubin" \
-		"brew install findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep"
-	export PATH="${GNU_FIND_HOME}:$PATH"
-  ;;
-  Linux)
+		if [ ! -e "$package_path" ]; then
+			verboseExec "brew install $package"
+		fi
+
+		[ -d "${bin_path}" ] && export PATH="${bin_path}:${PATH}"
+		[ -d "${man_path}" ] && export MANPATH="${man_path}:${MANPATH}"
+	done
+	;;
+Linux)
 	echo ""
-  ;;
+	;;
 esac
