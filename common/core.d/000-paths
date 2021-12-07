@@ -6,18 +6,18 @@ export APPSTORE="$STORE/apps"
 export CACHESTORE="$STORE/cache"
 
 #... Incase it's not already set (don't want to constraint the location)
-[ -z "$ENV" ] && export ENV="$HOME/.shell"
+[ -z "$DOTSHELL_ENV" ] && export ENV="$HOME/.shell"
 
-export BIN="$ENV/bin"
-export LOCAL="$ENV/local"
+export BIN="$DOTSHELL_ENV/bin"
+export LOCAL="$DOTSHELL_ENV/local"
 export LOCAL_BIN="$LOCAL/bin"
-export APPS="$ENV/apps"
-export CACHES="$ENV/config/caches"
-export DOTFILES="$ENV/config/dotfiles"
-export OVERLAYS="$ENV/config/overlays"
-export OPT="$ENV/opt"
-export STORELINK="$ENV/.store"
-export REQUIRED_PACKAGES="$ENV/config/required/packages"
+export APPS="$DOTSHELL_ENV/apps"
+export CACHES="$DOTSHELL_ENV/config/caches"
+export DOTFILES="$DOTSHELL_ENV/config/dotfiles"
+export OVERLAYS="$DOTSHELL_ENV/config/overlays"
+export OPT="$DOTSHELL_ENV/opt"
+export STORELINK="$DOTSHELL_ENV/.store"
+export REQUIRED_PACKAGES="$DOTSHELL_ENV/config/required/packages"
 
 export PROJECTS="$HOME/projects"
 

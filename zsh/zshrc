@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+# Key-binding for LFCD
+if [ -d ~/.config/lf ]; then
+	bindkey -s '^o' 'c\n'
+fi
+
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
@@ -9,6 +14,7 @@ antigen bundle git
 antigen bundle gitignore #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
 antigen bundle pip
 antigen bundle ng
+antigen bundle colored-man-pages
 antigen bundle command-not-found
 antigen bundle python #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
 antigen bundle jenv #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/jenv

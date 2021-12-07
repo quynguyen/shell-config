@@ -1,12 +1,24 @@
 #!/bin/sh
 
+# Set the PAGER program to be 'less'.
+export PAGER="/usr/bin/less"
+export LESS=" -i"
+export MANPAGER="$PAGER"
+if [ -x /usr/local/bin/nvim ]; then
+	export EDITOR="/usr/local/bin/nvim" 
+else
+	export EDITOR="/usr/bin/vim"
+fi
+
 # Less - Syntax Highlighting
 # https://ole.michelsen.dk/blog/syntax-highlight-files-macos-terminal-less/
 LESSPIPE="$(which src-hilite-lesspipe.sh)"
-if [ -d "$LESSPIPE" ]; then
+if [ -x "$LESSPIPE" ]; then
 	export LESSOPEN="| ${LESSPIPE} %s"
-	export LESS=' -R -X -F '
+	export LESS=' -R -X -F -i'
 fi
+
+
 case $(uname) in
 	Darwin)
 		if [ ! "$(type -a brew)" ]; then

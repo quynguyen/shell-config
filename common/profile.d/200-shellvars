@@ -1,16 +1,5 @@
 #!/bin/sh
 
-# Set the PAGER program to be 'less'.  The "-i" option is for case-insensitive searching
-#export EDITOR="/usr/bin/vim"
-#export PAGER="/usr/bin/less -i"
-export PAGER="/usr/bin/less -i"
-if [ -x /usr/local/bin/nvim ]; then
-	export EDITOR="/usr/local/bin/nvim" 
-else
-	export EDITOR="/usr/bin/vim"
-fi
-
-
 # CVS
 export CVSUMASK=002
 
