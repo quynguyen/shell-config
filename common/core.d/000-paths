@@ -6,7 +6,7 @@ export APPSTORE="$STORE/apps"
 export CACHESTORE="$STORE/cache"
 
 #... Incase it's not already set (don't want to constraint the location)
-[ -z "$DOTSHELL_ENV" ] && export ENV="$HOME/.shell"
+[ -z "$DOTSHELL_ENV" ] && export DOTSHELL_ENV="$HOME/.shell"
 
 export BIN="$DOTSHELL_ENV/bin"
 export LOCAL="$DOTSHELL_ENV/local"
