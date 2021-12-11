@@ -110,7 +110,7 @@ function moveAndLink()
 	local symlinkDir=$(dirname $symlink)
 
 	[ ! -d $symlinkDir ] && \
-		mkdir --parents $symlinkDir
+		mkdir -p $symlinkDir
 
 	## Is the $symlink already a link?
 	if [ -L $symlink ]; then

@@ -18,6 +18,8 @@ export OVERLAYS="$DOTSHELL_ENV/config/overlays"
 export OPT="$DOTSHELL_ENV/opt"
 export STORELINK="$DOTSHELL_ENV/.store"
 export REQUIRED_PACKAGES="$DOTSHELL_ENV/config/required/packages"
+export REQUIRED_TAPS="$DOTSHELL_ENV/config/required/taps"
+export REQUIRED_CASKS="$DOTSHELL_ENV/config/required/casks"
 
 export PROJECTS="$HOME/projects"
 

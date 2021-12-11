@@ -9,8 +9,11 @@ source zsh-antigen
 source zshenv
 source zshrc
 
-for p in $HOME/.profile.d/*; do 
-	source $p 
-done
+
+if [ -d $HOME/.profile.d/ ] && [ $(ls -A ~/.profile.d) ]; then
+	for p in $HOME/.profile.d/*; do 
+		source $p 
+	done
+fi
 
 popd  > /dev/null # go back to working directory ( quietly )

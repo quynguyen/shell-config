@@ -21,21 +21,20 @@ fi
 
 case $(uname) in
 	Darwin)
-		if [ ! "$(type -a brew)" ]; then
-			echo "You need to install Homebrew"
-			exit 1
-		fi
+		#if [ ! "$(type -a brew)" ]; then
+		#	echo "You need to install Homebrew"
+		#	exit 1
+		#fi
 
-		ensureCmd brew "/usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+		ensureCmd brew '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
 		if [[ ! $(type -a envsubst) ]]; then
 			brew install gettext
-			exit 1
 		fi
 
 	# Install all the GNU-Utils
 	for package in coreutils diffutils findutils gawk gnu-indent gnu-sed gnu-tar gnu-which gnutls gnu-getopt grep watch wdiff wget; do
-		package_path="/usr/local/opt/${package}/"
+		package_path="${HOMEBREW_PREFIX}/opt/${package}/"
 		bin_path="${package_path}/libexec/gnubin"
 		man_path="${package_path}/libexec/gnuman/"
 
@@ -43,8 +42,8 @@ case $(uname) in
 			verboseExec "brew install $package"
 		fi
 
-		[ -d "${bin_path}" ] && export PATH="${bin_path}:${PATH}"
-		[ -d "${man_path}" ] && export MANPATH="${man_path}:${MANPATH}"
+#		[ -d "${bin_path}" ] && export PATH="${bin_path}:${PATH}"
+#		[ -d "${man_path}" ] && export MANPATH="${man_path}:${MANPATH}"
 	done
 	;;
 Linux)
