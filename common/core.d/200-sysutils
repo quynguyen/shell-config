@@ -4,10 +4,10 @@
 export PAGER="/usr/bin/less"
 export LESS=" -i"
 export MANPAGER="$PAGER"
-if [ -x /usr/local/bin/nvim ]; then
-	export EDITOR="/usr/local/bin/nvim" 
+if [ -x "$( which nvim )" ]; then
+	export EDITOR="$( which nvim )" 
 else
-	export EDITOR="/usr/bin/vim"
+	export EDITOR="$( which vim )"
 fi
 
 # Less - Syntax Highlighting
