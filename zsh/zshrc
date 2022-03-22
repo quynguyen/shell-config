@@ -12,8 +12,15 @@ antigen use oh-my-zsh
 antigen bundle vi-mode
 antigen bundle git
 antigen bundle gitignore #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
+antigen bundle github
+antigen bundle colorize
+antigen bundle brew
+antigen bundle macos
+antigen bundle rails
+antigen bundle ruby
+antigen bundle bundler
+antigen bundle npm
 antigen bundle pip
-antigen bundle ng
 antigen bundle colored-man-pages
 antigen bundle command-not-found
 antigen bundle python #https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python

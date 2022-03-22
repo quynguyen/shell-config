@@ -42,8 +42,8 @@ case $(uname) in
 			verboseExec "brew install $package"
 		fi
 
-#		[ -d "${bin_path}" ] && export PATH="${bin_path}:${PATH}"
-#		[ -d "${man_path}" ] && export MANPATH="${man_path}:${MANPATH}"
+		[ -d "${bin_path}" ] && export PATH="${bin_path}:${PATH}"
+		[ -d "${man_path}" ] && export MANPATH="${man_path}:${MANPATH}"
 	done
 	;;
 Linux)

@@ -1,6 +1,8 @@
 #!/bin/sh
 
 [[ -e `which gls` ]] && alias ls="gls --color=auto"
+[[ -e `which lazygit`  ]] && alias lg="lazygit"
+[[ -e `which nvim` ]] && alias n="nvim"
 alias ll="ls -l"
 alias lt="ls -ltr"
 alias cb="cdb -b"

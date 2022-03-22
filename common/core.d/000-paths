@@ -25,3 +25,5 @@ export PROJECTS="$HOME/projects"
 
 export PATH="${LOCAL_BIN}:${BIN}:${PATH}"
 
+[ -e "$BIN/cht.sh" ] || curl https://cht.sh/:cht.sh > "$BIN/cht.sh"
+[ -x "$BIN/cht.sh" ] || chmod +x "$BIN/cht.sh"
