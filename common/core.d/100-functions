@@ -196,6 +196,11 @@ function relink(){
 	fi
 }
 
+function envProfile()
+{
+  echo $ENV_PROFILE
+}
+
 
 function dynamicLookup()
 {
@@ -204,20 +209,35 @@ function dynamicLookup()
     local prefix=${sourceFile%.*}
     local extension=$([[ "$sourceFile" = *.* ]] && echo ".${sourceFile##*.}" || echo '')
     local os=`uname`
+    local profile=$(envProfile)
 
+    local osProfileSourceFile=""
+    local profileSourceFile=""
     local osSourceFile=""
-    
 
     if [ -z $extension ]; then
-        osSourceFile="${prefix}-${os}"
+      if [ -n "${profile}" ]; then
+        osProfileSourceFile="${prefix}-${os}-${profile}"
+        profileSourceFile="${prefix}-${profile}"
+      fi
+      osSourceFile="${prefix}-${os}"
     else
-        osSourceFile="${prefix}-${os}${extension}"
+      if [ -n "${profile}" ]; then
+        osProfileSourceFile="${prefix}-${os}-${profile}${extension}"
+        profileSourceFile="${prefix}-${profile}${extension}"
+      fi
+      profileSourceFile="${prefix}-${profile}${extension}"
+      osSourceFile="${prefix}-${os}${extension}"
     fi
 
-    if [ -e $dir/$osSourceFile ]; then
-        echo $dir/$osSourceFile
+    if [ -e $dir/$osProfileSourceFile ]; then
+      echo $dir/$osProfileSourceFile
+    elif [ -e $dir/$profileSourceFile ]; then
+      echo $dir/$profileSourceFile
+    elif [ -e $dir/$osSourceFile ]; then
+      echo $dir/$osSourceFile
     else
-        echo $dir/$sourceFile
+      echo $dir/$sourceFile
     fi
 }
 
