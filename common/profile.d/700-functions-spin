@@ -1,0 +1,45 @@
+#!/bin/sh
+
+function spinw() {
+  spin up "$1" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target \
+    "${@:2}"
+}
+
+function spinwait() {
+  spin up "$1" \
+    --name "$2" \
+    --config "$1".branch="${3:-main}" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target
+}
+
+function spinbg() {
+  spin up ShopifyFRS/bourgeois \
+    --name "$1" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target \
+    --config business-platform.branch="${2:-main}" \
+}
+
+function spinbpus() {
+  spin up business-platform \
+    --name "$1" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target \
+    --config business-platform.branch="${2:-main}" \
+    --config shopify.env.SPIN_BUSINESS_PLATFORM_TOPHAT_USNL=1
+}
+
+function spinbpro() {
+  spin up business-platform \
+    --name "$1" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target \
+    --config business-platform.branch="${2:-main}" \
+    --config shopify.env.SPIN_BUSINESS_PLATFORM_TOPHAT_SP_ROMANIA=1
+}
+
+function spinbpfr() {
+  spin up business-platform \
+    --name "$1" \
+    --wait --wait-timeout=-1 --wait-for-unit=spin.target \
+    --config business-platform.branch="${2:-main}" \
+    --config shopify.env.SPIN_BUSINESS_PLATFORM_TOPHAT_SP_FRANCE=1
+}
